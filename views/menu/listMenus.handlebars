@@ -1,0 +1,62 @@
+<div class="menu">
+    <div class="heading">
+        <h1>Food Management</h1>
+        <h3>Menu</h3>
+    </div>
+    {{#if menus}}
+		{{#each menus}}
+		
+		<div class="card border-primary w-75 ml-auto mb-3">
+			<div class="card-header">
+				<h5 class="card-title">{{name}}</h5>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-2">
+						<a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
+							<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
+								onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
+						</a>
+					</div>
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Description</p>
+								<p class="text-info">{{description}}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Price</p>
+								<p class="text-info">${{price}}</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<p>
+							<a href="/menu/editMenu/{{id}}" class="card-link mb-2">
+								<i class="fas fa-pencil-alt"></i>
+								Edit
+							</a>
+						</p>
+						<p>
+							<a href="/menu/deleteMenu/{{id}}" class="card-link" data-toggle="confirmation"
+								data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Delete
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	{{else}}
+	<h3>No Menu Available</h3>
+	{{/if}}
+	<a href="/menu/addMenu" class="heading">Add Menu</a>
+</div>
+
+<script>
+	$('[data-toggle=confirmation]').confirmation({
+		rootSelector: '[data-toggle=confirmation]',
+	});
+</script>

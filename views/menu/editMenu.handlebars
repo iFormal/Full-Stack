@@ -1,0 +1,52 @@
+<div class="menu">
+	<div class="heading">
+		<h1>Edit Menu</h1>
+	</div>
+<div class="container">
+	<div class="card card-body">
+		<form action="" method="post">
+			<div class="row mb-3">
+				<div class="col-lg-9">
+					<div class="form-group">
+						{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+						<label class="font-italic" for="name">Name</label>
+						<input class="form-control mb-1" id="name" name="name" value="{{menu.name}}"
+							onblur="initialiseTitle()" />
+					</div>
+					<div class="form-group">
+						<label class="font-italic" for="description">Description</label>
+						<textarea class="form-control" id="description" name="description" rows="7"
+							maxlength="2000">{{menu.description}}</textarea>
+					</div>
+					<div class="form-group">
+						<label class="font-italic" for="price">Price</label>
+						<input class="form-control" id="price" name="price" value="{{menu.price}}" />
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="custom-file mb-2">
+						<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"
+							accept="image/png,image/jpeg,image/jpg,image/gif">
+						<label class="custom-file-label" for="customFile">Choose File</label>
+					</div>
+					<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
+					<img id="poster" src="{{menu.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid"
+						onerror="this.src='/img/no-image.jpg'">
+					{{!—- Hidden field to submit URL of poster to the server --}}
+					<input id="posterURL" type="hidden" name="posterURL" value="{{menu.posterURL}}">
+				</div>
+			</div>
+			<br>
+			<button id="btnSubmit" type="submit" class="btn btn-primary">Save
+			</button>
+		</form>
+	</div>
+</div>
+</div>
+
+<script>
+	$('#datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		uiLibrary: 'bootstrap4',
+	});
+</script>

@@ -1,0 +1,86 @@
+{{#if user}}
+<div class="sidebar">
+    <div class="logo_content">
+        <div class="logo">
+            <i class='bx bxl-c-plus-plus'></i>
+            <a href="/" class="logo_name">SouthCanteen</a>
+        </div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav_list">
+        <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-store'></i>
+                <span class="links_name">Store Management</span>
+            </a>
+        </li>
+        <li>
+            <a href="/menu/listMenus">
+                <i class='bx bx-food-menu'></i>
+                <span class="links_name">Food Management</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-cart'></i>
+                <span class="links_name">Customer Order</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Manage Account</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-envelope'></i>
+                <span class="links_name">Promotional Email</span>
+            </a>
+        </li>
+        <li>
+            <a href="/user/logout">
+                <i class='bx bx-log-out'></i>
+                <span class="links_name">Log Out</span>
+            </a>
+        </li>
+    </ul>
+</div>
+{{else}}
+{{!-- <div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/">South Canteen</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/user/login" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/user/register" class="nav-link">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div> --}}
+<nav>
+    <label class="logo2">SouthCanteen</label>
+    <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/menu/listmenus2">Menu</a></li>
+        <li><a href="/user/login">Login</a></li>
+    </ul>
+</nav>
+{{/if}}
