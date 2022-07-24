@@ -1,0 +1,80 @@
+<div class="container">
+	{{#if product}}
+	<form method="post" action="">
+		<h3 class="text-primary">Shopping Cart</h3>
+		<div name="cart" id="cart" style="float: left;">
+			<table border="2" width="100%" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Dish Cost</th>
+						<th>Number Purchased</th>
+						<th>Remove</th>
+					</tr>
+					{{#each product}}
+					<tr>
+						<td>
+							<input hidden="text" class="form-control mb-1" id="name" name="name" value="{{index}}" />
+							<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}" />{{
+							name }}
+						</td>
+						<td>
+							<input hidden="hidden" class="form-control mb-1" id="price" name="price"
+								value="{{price}}" />${{ price }}
+						</td>
+						<td>
+							<a href="/order/minusOne/{{id}}">-</a>
+							<input type="hidden" id="quantity" name="quantity" value="{{quantity}}"/> {{quantity}}
+							<a href="/order/addOne/{{id}}">+</a>
+						</td>
+						<td>
+							<a href="/order/deleteProduct/{{id}}" class="card-link" data-toggle="confirmation"
+								data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Delete
+							</a>
+						</td>
+					</tr>
+					{{/each}}
+					<tr>
+						<th> </th>
+						<th> </th>
+						<th>Total Price:</th>
+						<th> <input hidden="hidden" class="form-control mb-1" id="totalprice" name="totalprice" />${{totalprice}}</th>
+					</tr>
+			</table>
+		</div>
+		<div class="card card-body" style="float: right;">
+			<h1 class="display-6">Payment</h1>
+			<div class="form-group">
+				<label for="creditcard">Credit Card</label>
+				<input type="creditcard" name="cardNo" id="cardNo" minlength="16" maxlength="16" class="form-control"
+					required>
+			</div>
+			<div class="form-group">
+				<label for="expiry date">Expiry Date</label>
+				<input type="date" name="expiredate" id="expiredate" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="safety pin">Safety Pin</label>
+				<input type="safety pin" name="pin" id="pin" minlength="3" maxlength="3" class="form-control" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+
+		</div>
+	</form>
+	{{else}}
+	<h3>No Products</h3>
+	{{/if}}
+</div>
+
+<script>
+	$('[data-toggle=confirmation]').confirmation({
+		rootSelector: '[data-toggle=confirmation]',
+	});
+
+	function descreseQty(){
+		var qty = 
+	}
+
+</script>

@@ -1,0 +1,34 @@
+<div class="container">
+	{{#if order}}
+	<div class="card card-body">
+		<h3 class="text-primary">Video Jots</h3>
+		{{#each order}}
+		<div class="card border-primary mb-2 w-100 mx-auto">
+			<div class="card-header">
+				<h5 class="card-title">{{id}}</h5>
+			</div>
+			<div class="card-body">
+                <table>
+					<tr>
+						<th>Name</th>
+						<th>quantity</th>
+					</tr>
+					<tr>
+						<th>{{cart}}</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+	{{else}}
+	<h3>No Orders</h3>
+    <a href="/order/addProduct"> Start Ordering Now</a>
+	{{/if}}
+</div>
+
+<script>
+	$('[data-toggle=confirmation]').confirmation({
+		rootSelector: '[data-toggle=confirmation]',
+	});
+</script>
