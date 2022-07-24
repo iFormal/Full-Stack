@@ -1,3 +1,7 @@
+<div class="heading">
+  <h2>Our Menu</h2>
+</div>
+
 <section class="products">
   <aside>
     {{!-- <div class="categories">
@@ -60,7 +64,7 @@
       {{#each menus}}
         <form class="product">
           <div class="labels">
-            <p class="promotion">Sale</p>
+            <p class="promotion">Popular</p>
             {{!-- <div class="actions">
               <a href="/add-to-cart/{{this.id}}" class="add-list">
                 <img src="/img/no-image.jpg" alt="Add to list">
@@ -76,7 +80,7 @@
           {{!-- <div id="rating" data-rating="{{rating}}"></div> --}}
 
           <div class="price">
-            <p class="price-value">$ {{price}}</p>
+            <p class="price-value">${{price}}</p>
             <a href="/add-to-cart/{{this.id}}">
               <img src="/img/cart.png" alt="Add to cart">
             </a>
