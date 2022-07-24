@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="card card-body">
+		<h3>Edit Promotion</h3>
+		<form action="" method="post">
+			<div class="row mb-3">
+				<div class="col-lg-9">
+					<div class="form-group">
+						{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+						<label class="font-italic" for="title">Title</label>
+						<textarea class="form-control" id="title" name="title" onblur="initialiseTitle()" rows="1"
+							maxlength="255">{{promotion.title}}</textarea>
+					</div>
+					<div class="form-group mb-4">
+						<label class="font-italic" for="description">Description</label>
+						<textarea class="form-control" id="description" name="description" rows="7"
+							maxlength="2000">{{promotion.description}}</textarea>
+					</div>
+					<div class="form-group">
+						<label class="font-italic" for="description">Store Owner</label>
+						<input class="form-control" id="storeowner" name="storeowner" value="{{promotion.storeowner}}" />
+					</div>
+				</div>
+				<div class="custom-file mb-2">
+					<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"
+						accept="image/png,image/jpeg,image/jpg,image/gif">
+					<label class="custom-file-label" for="customFile">Choose File</label>
+				</div>
+			<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
+				<img id="poster" src="{{promotion.posterURL}}" alt="Poster" class="border img-
+thumbnail img-fluid" onerror="this.src='/img/no-image.jpg'">
+				{{!—- Hidden field to submit URL of poster to the server --}}
+				<input id="posterURL" type="hidden" name="posterURL" value="{{promotion.posterURL}}">
+			</div>
+			<div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-4">
+				<label class="font-italic">Date of release</label>
+				<input id="datepicker" width="200" name="dateRelease"
+					value="{{formatDate promotion.dateRelease 'DD/MM/YYYY'}}" readonly />
+			</div>
+	</div>
+	<br>
+	<button id="btnSubmit" type="submit" class="btn btn-primary">Save
+	</button>
+	</form>
+</div>
+</div>
+
+<script>
+	$('#datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		uiLibrary: 'bootstrap4',
+	});
+</script>

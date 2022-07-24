@@ -22,6 +22,64 @@
 			</a>
 		</li>
 	</ul>
+    <div class="logo_content">
+        <div class="logo">
+            <i class='bx bxl-c-plus-plus'></i>
+            <a href="/" class="logo_name">SouthCanteen</a>
+        </div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav_list">
+        <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-store'></i>
+                <span class="links_name">Store Management</span>
+            </a>
+        </li>
+        <li>
+            <a href="/menu/listMenus">
+                <i class='bx bx-food-menu'></i>
+                <span class="links_name">Food Management</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-cart'></i>
+                <span class="links_name">Customer Order</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Manage Account</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-envelope'></i>
+                <span class="links_name">Promotional Email</span>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">Promotion
+            </a>
+            <div class="dropdown-menu">
+                <a href="/promotion/listPromotions" class="dropdown-item">Promotions</a>
+                <a href="/promotion/addPromotion" class="dropdown-item">Add Promotion</a>
+                <a href="/promotion/userInterface" class="dropdown-item">User Interface</a>
+            </div>
+        </li>
+        <li>
+            <a href="/user/logout">
+                <i class='bx bx-log-out'></i>
+                <span class="links_name">Log Out</span>
+            </a>
+        </li>
+    </ul>
 </div>
 
 {{#if user.status}}
