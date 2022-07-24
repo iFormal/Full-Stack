@@ -85,46 +85,59 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async function (req, res) {
-	let { name, email, password, password2, status } = req.body;
-	let isValid = true;
-	if (password.length < 6) {
-		flashMessage(res, 'error', 'Password must be at least 6 characters');
-		isValid = false;
-	}
-	if (password != password2) {
-		flashMessage(res, 'error', 'Passwords do not match');
-		isValid = false;
-	}
-	if (!isValid) {
-		res.render('/register', {
-			name, email
-		});
-		return;
-	}
+    let { name, email, password, password2, status } = req.body;
 
-	try {
-		// If all is well, checks if user is already registered
-		let user = await User.findOne({ where: { email: email } });
-		if (user) {
-			// If user is found, that means email has already been registered
-			flashMessage(res, 'error', email + ' is already registered. Please try again.');
-			res.render('register', {
-				name, email
-			});
-		}
-		else {
-			// Create new user record
-			var salt = bcrypt.genSaltSync(10);
-			var hash = bcrypt.hashSync(password, salt);
-			// Use hashed password
-			let user = await User.create({ name, email, status, password: hash });
-			flashMessage(res, 'success', email + ' registered successfully!');
-			res.redirect('/login');
-		}
-	}
-	catch (err) {
-		console.log(err);
-	}
+    let isValid = true;
+    if (password.length < 6) {
+        flashMessage(res, 'error', 'Password must be at least 6 char-acters');
+        isValid = false;
+    }
+    if (password != password2) {
+        flashMessage(res, 'error', 'Passwords do not match');
+        isValid = false;
+    }
+    if (!isValid) {
+        res.render('register', {
+            name, email
+        });
+        return;
+    }
+
+    try {
+        // If all is well, checks if user is already registered
+        let user = await User.findOne({ where: { email: email } });
+        if (user) {
+            // If user is found, that means email has already been registered
+            flashMessage(res, 'error', email + ' already registered');
+            res.render('register', {
+                name, email
+            });
+        }
+        else {
+            // Create new user record 
+            var salt = bcrypt.genSaltSync(10);
+            var hash = bcrypt.hashSync(password, salt);
+            // Use hashed password
+            let user = await User.create({ name, email, status, password: hash, verified: 0 });
+            // Send email
+            let token = jwt.sign(email, process.env.APP_SECRET);
+            let url = `${process.env.BASE_URL}:${process.env.PORT}/verify/${user.id}/${token}`;
+            sendEmail(user.email, url)
+                .then(response => {
+                    console.log(response);
+                    flashMessage(res, 'success', user.email + ' registered successfully');
+                    res.redirect('/login');
+                })
+                .catch(err => {
+                    console.log(err);
+                    flashMessage(res, 'error', 'Error when sending email to ' + user.email);
+                    res.redirect('/');
+                });
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 router.post('/login', passport.authenticate('local', {
