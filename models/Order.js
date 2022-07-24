@@ -2,9 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../config/DBConfig');
 
 // Create videos table in MySQL Database
-const Cart = db.define('cart',
+const Order = db.define('order',
     {
         cart: { type: Sequelize.JSON },
+        totalprice: {type: Sequelize.DECIMAL(10, 2)}
     });
 
-module.exports = Cart;
+module.exports = Order;

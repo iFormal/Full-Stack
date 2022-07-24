@@ -1,8 +1,8 @@
 <div class="container">
-	{{#if product}}
+	{{#if cart}}
 	<form method="post" action="">
 		<h3 class="text-primary">Shopping Cart</h3>
-		<div name="cart" id="cart" style="float: left;">
+		<div style="float: left;">
 			<table border="2" width="100%" class="table table-striped">
 				<thead>
 					<tr>
@@ -11,12 +11,10 @@
 						<th>Number Purchased</th>
 						<th>Remove</th>
 					</tr>
-					{{#each product}}
+					{{#each cart}}
 					<tr>
 						<td>
-							<input hidden="text" class="form-control mb-1" id="name" name="name" value="{{index}}" />
-							<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}" />{{
-							name }}
+							<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}" />{{name}}
 						</td>
 						<td>
 							<input hidden="hidden" class="form-control mb-1" id="price" name="price"
@@ -40,7 +38,7 @@
 						<th> </th>
 						<th> </th>
 						<th>Total Price:</th>
-						<th> <input hidden="hidden" class="form-control mb-1" id="totalprice" name="totalprice" />${{totalprice}}</th>
+						<th> <input hidden="hidden" class="form-control mb-1" id="totalprice" name="totalprice" value="{{totalprice}}"/>${{totalprice}}</th>
 					</tr>
 			</table>
 		</div>
