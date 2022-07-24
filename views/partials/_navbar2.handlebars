@@ -58,8 +58,17 @@
     <label class="logo2">SouthCanteen</label>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/user/listMenus2">Menu</a></li>
-        <li><a href="/user/logout">Logout</a></li>
+        <li>
+            <<a href="/user/listMenus2">Menu</a>>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                id="navbarDropdownMenuLink">{{user.name}}</a>
+            <div class="dropdown-menu">
+                <a href="/user/account" class="dropdown-item">Profile</a>
+                <a href="/user/logout" class="dropdown-item">Logout</a>
+            </div>
+        </li>
     </ul>
 </nav>
 {{else}}
@@ -69,7 +78,9 @@
     <label class="logo2">SouthCanteen</label>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/user/listMenus2">Menu</a></li>
+        <li>
+            <<a href="/user/listMenus2">Menu</a>>
+        </li>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
     </ul>
