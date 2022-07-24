@@ -441,7 +441,7 @@ nav ul li a:hover{
   margin-top: 2em;
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 4px 2px 8px rgba(0,0,0,.05);
+  box-shadow: 4px 2px 100px rgba(0,0,0,.05);
 }
 .products main .products-list .product .labels {
   display: flex;
@@ -502,5 +502,6 @@ nav ul li a:hover{
 .products main .products-list .product .price img {
   width: 18px;
   height: 18px;
-  margin-left: 10px;
+  margin-bottom: 15px;
+  margin-left: 20px;
 }
