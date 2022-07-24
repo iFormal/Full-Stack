@@ -102,11 +102,13 @@ app.use(function (req, res, next) {
 const mainRoute = require('./routes/main');
 const userRoute = require('./routes/user');
 const menuRoute = require('./routes/menu');
+const orderRoute = require('./routes/order')
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/user', userRoute);
 app.use('/menu', menuRoute);
+app.use('/order', orderRoute);
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known
