@@ -1,7 +1,7 @@
 const mySQLDB = require('./DBConfig');
 const User = require('../models/User');
 const Menu = require('../models/Menu');
-
+const Promotion = require('../models/Promotion');
 // If drop is true, all existing tables are dropped and recreated 
 const setUpDB = (drop) => {
     mySQLDB.authenticate()
@@ -16,8 +16,15 @@ const setUpDB = (drop) => {
             mySQLDB.sync({
                 force: drop
             });
+            User.hasMany(Promotion);
+            Promotion.belongsTo(User);
+            mySQLDB.sync({
+                force: drop
+            });
         })
         .catch(err => console.log(err));
 };
+
+
 
 module.exports = { setUpDB };

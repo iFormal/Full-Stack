@@ -1,41 +1,106 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
-	<div class="container">
-		<a class="navbar-brand" href="/">VidJot</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/about">About</a>
-				</li>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				{{#if user}}
-				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-						id="navbarDropdownMenuLink">South Canteen</a>
-					<div class="dropdown-menu">
-						<a href="/menu/listMenus" class="dropdown-item">Menus</a>
-						<a href="/menu/addMenu" class="dropdown-item">Add Menu</a>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a href="/user/logout" class="nav-link">Logout</a>
-				</li>
-				{{else}}
-				<li class="nav-item">
-					<a href="/user/login" class="nav-link">Login</a>
-				</li>
-				<li class="nav-item">
-					<a href="/user/register" class="nav-link">Register</a>
-				</li>
-				{{/if}}
-			</ul>
+{{!-- {{#if user}}
+
+<div class="sidebar">
+	<div class="logo_content">
+		<div class="logo">
+			<i class='bx bxl-c-plus-plus'></i>
+			<a href="/" class="logo_name">SouthCanteen - User</a>
 		</div>
+		<i class='bx bx-menu' id="btn"></i>
 	</div>
-</nav>
+	<ul class="nav_list">
+		<li>
+			<a href="/user/account">
+				<i class='bx bx-user'></i>
+				<span class="links_name">Manage Account</span>
+			</a>
+		</li>
+		<li>
+			<a href="/user/logout">
+				<i class='bx bx-log-out'></i>
+				<span class="links_name">Log Out</span>
+			</a>
+		</li>
+	</ul>
+</div>
+
+{{#if user.status}}
+
+<div class="sidebar">
+	<div class="logo_content">
+		<div class="logo">
+			<i class='bx bxl-c-plus-plus'></i>
+			<a href="/" class="logo_name">SouthCanteen - Admin</a>
+		</div>
+		<i class='bx bx-menu' id="btn"></i>
+	</div>
+	<ul class="nav_list">
+		<li>
+			<a href="#">
+				<i class='bx bx-store'></i>
+				<span class="links_name">Store Management</span>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/menu/listMenus">
+				<i class='bx bx-food-menu'></i>
+				<span class="links_name">Food Management</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class='bx bx-cart'></i>
+				<span class="links_name">Customer Order</span>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/listAcc">
+				<i class='bx bx-user'></i>
+				<span class="links_name">Manage Account</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class='bx bx-envelope'></i>
+				<span class="links_name">Promotional Email</span>
+			</a>
+		</li>
+		<li>
+			<a href="/user/logout">
+				<i class='bx bx-log-out'></i>
+				<span class="links_name">Log Out</span>
+			</a>
+		</li>
+	</ul>
+</div>
+
+{{/if}}
+
+{{else}}
+
+<div>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+		<div class="container">
+			<a class="navbar-brand" href="/">South Canteen</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a href="/login" class="nav-link">Login</a>
+					</li>
+					<li class="nav-item">
+						<a href="/register" class="nav-link">Register</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+
+{{/if}} --}}
