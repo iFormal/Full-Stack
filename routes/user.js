@@ -7,16 +7,22 @@ const passport = require('passport');
 const Menu = require('../models/Menu');
 const ensureAuthenticated = require('../helpers/auth');
 
-router.get('/menu', ensureAuthenticated, (req, res) => {
+router.get('/listMenus2', (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
     })
         .then((menus) => {
             // pass object to listMenus.handlebar
-            res.render('user/Menu', { menus });
+            res.render('user/listMenus2', { menus });
         })
         .catch(err => console.log(err));
+});
+
+router.get('/home', (req, res) => {
+    const title = 'Placeholder Carousel';
+    // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
+    res.render('user/home', { title: title })
 });
 
 // // Required for email verification

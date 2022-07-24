@@ -41,7 +41,7 @@ $('#posterUpload').on('change', function () {
     let formdata = new FormData();
     let image = $("#posterUpload")[0].files[0];
     formdata.append('posterUpload', image);
-    fetch('/menu/upload', {
+    fetch('/admin/upload', {
         method: 'POST',
         body: formdata
     })
