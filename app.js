@@ -95,18 +95,19 @@ app.use(function (req, res, next) {
 	res.locals.messages = req.flash('message');
 	res.locals.errors = req.flash('error');
 	res.locals.user = req.user || null;
+	res.locals.admin = req.admin || null;
 	next();
 });
 
 // mainRoute is declared to point to routes/main.js
 const mainRoute = require('./routes/main');
 const userRoute = require('./routes/user');
-const menuRoute = require('./routes/menu');
+const adminRoute = require('./routes/admin');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/user', userRoute);
-app.use('/menu', menuRoute);
+app.use('/admin', adminRoute);
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known
