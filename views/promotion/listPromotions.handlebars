@@ -1,3 +1,16 @@
+<style>
+	.addbtn {
+		color: white;
+		border-radius: 10px;
+		display: inline-block;
+		width: 100px;
+		padding: 10px;
+		text-decoration: none;
+		align-items: right;
+		float: right;
+		background-color: blue;
+	}
+</style>
 <div class="container">
 	{{#if promotions}}
 	<div class="card card-body">
@@ -70,6 +83,9 @@ height:160px">
 {{else}}
 <h3>No Promotion</h3>
 {{/if}}
+<div>
+	<a href="/promotion/addPromotion"><button class="addbtn">Add</button></a>
+</div>
 
 <script>
 	$('[data-toggle=confirmation]').confirmation({
