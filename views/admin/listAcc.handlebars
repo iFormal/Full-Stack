@@ -7,6 +7,9 @@
             <div class="card-header">   
                 <p></p>
                 <h5 class="card-title">User: {{ name }}</h5>
+                {{#if status}}
+                <p>(Admin Account)</p>
+                {{/if}}
             </div>
             <div class="card-body">
                 <div class="row">
