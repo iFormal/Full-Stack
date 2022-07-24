@@ -21,10 +21,10 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
             // pass object to listProduct.handlebar
             var totalprice = 0;
             for (var index in cart) {
-                totalprice += product[index].price * product[index].quantity
+                totalprice += cart[index].price * cart[index].quantity
                 console.log(totalprice)
             }
-            res.render('order/listProduct', { product, totalprice });
+            res.render('order/listProduct', { cart, totalprice });
         })
         .catch(err => console.log(err));
 });
@@ -54,8 +54,8 @@ router.post('/addProduct', ensureAuthenticated, (req, res) => {
             name, description, quantity, price, userId, productid
         }
     )
-        .then((product) => {
-            console.log(product.toJSON());
+        .then((cart) => {
+            console.log(cart.toJSON());
             res.redirect('/order/listProduct',
             );
         })
@@ -147,9 +147,8 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
 
 router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
-    let price = req.body.price;
     let quantity = req.body.quantity;
-    let cart = [name, price, quantity];
+    let cart = [name,'X',quantity];
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
 
@@ -161,7 +160,7 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
         .then((order) => {
             console.log(order.toJSON());
             res.redirect('/order/receipt',);
-            Product.destroy(
+            Cart.destroy(
                 {
                     where : {},
                     truncate: true
