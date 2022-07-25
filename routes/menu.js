@@ -10,26 +10,26 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 
-router.get('/listMenus', (req, res) => {
+router.get('/listMenus', ensureAuthenticated, (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
     })
         .then((menus) => {
             // pass object to listMenus.handlebar
-            res.render('menu/listMenus', { menus });
+            res.render('admin/listMenus', { menus });
         })
         .catch(err => console.log(err));
 });
 
-router.get('/listMenus2', (req, res) => {
+router.get('/listMenus2', ensureAuthenticated, (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
     })
         .then((menus) => {
             // pass object to listMenus.handlebar
-            res.render('menu/listMenus2', { menus });
+            res.render('user/listMenus2', { menus });
         })
         .catch(err => console.log(err));
 });

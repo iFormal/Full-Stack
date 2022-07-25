@@ -7,7 +7,7 @@ const passport = require('passport');
 const Menu = require('../models/Menu');
 const ensureAuthenticated = require('../helpers/auth');
 
-router.get('/listMenus2', (req, res) => {
+router.get('/listMenus2', ensureAuthenticated, (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
