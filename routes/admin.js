@@ -1,6 +1,6 @@
 const express = require('express');
-const ensureAuthenticated = require('../helpers/auth');
-const ensureAuthorized = require('../helpers/auth');
+const ensureAuthenticated = require('../helpers/authenticate');
+const ensureAuthorized = require('../helpers/authorize');
 const router = express.Router();
 const Users = require('../models/User');
 const flashMessage = require('../helpers/messenger');
@@ -14,7 +14,7 @@ const upload = require('../helpers/imageUpload');
 //         raw: true
 //     })
 //         .then((user) => {
-//             // pass object to listVideos.handlebar
+//             // pass object to listVideos.handlebar 
 //             res.render('admin/listAcc', { user });
 //         })
 //         .catch(err => console.log(err));
