@@ -4,9 +4,10 @@ const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
+const flashMessage = require('../helpers/messenger');
 const ensureAuthenticated = require('../helpers/authenticate');
 
-router.get('/addProduct', ensureAuthenticated, (req, res) => {
+router.get('/listMenus2', ensureAuthenticated, (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
@@ -48,7 +49,7 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.post('/addProduct', ensureAuthenticated, (req, res) => {
+router.post('/listMenus2', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
     let quantity = 1;
     let price = req.body.price;
@@ -67,8 +68,8 @@ router.post('/addProduct', ensureAuthenticated, (req, res) => {
     )
         .then((cart) => {
             console.log(cart.toJSON());
-            res.redirect('/user/listProduct',
-            );
+            flashMessage(res, 'success', name + ' added to cart');
+            res.redirect('/user/listMenus2');
         })
         .catch(err => console.log(err))
     // }

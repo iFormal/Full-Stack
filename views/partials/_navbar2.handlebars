@@ -59,17 +59,19 @@
     <ul>
         <li><a href="/">Home</a></li>
         <li>
-            <a href="/user/addProduct">Menu</a>
+            <a href="/user/listMenus2">Menu</a>
         </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                 id="navbarDropdownMenuLink">{{user.name}}</a>
             <div class="dropdown-menu">
                 <a href="/user/profile/{{user.id}}" class="dropdown-item">Profile</a>
-                <a href="/user/listProduct" class="dropdown-item">Cart</a>
                 <a href="/user/receipt" class="dropdown-item">Order History</a>
                 <a href="/user/logout" class="dropdown-item">Logout</a>
             </div>
+        </li>
+        <li>
+            <a href="/user/listProduct"><img style="background-color:white;" src="/img/cartNo.png"></a>
         </li>
     </ul>
 </nav>
