@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const flashMessage = require('../helpers/messenger');
 const User = require('../models/User');
 const Menu = require('../models/Menu');
-const ensureAuthenticated = require('../helpers/auth');
+const ensureAuthenticated = require('../helpers/authenticate');
 
 router.get('/listMenus2', ensureAuthenticated, (req, res) => {
     Menu.findAll({
@@ -11,7 +10,6 @@ router.get('/listMenus2', ensureAuthenticated, (req, res) => {
         raw: true
     })
         .then((menus) => {
-            // pass object to listMenus.handlebar
             res.render('user/listMenus2', { menus });
         })
         .catch(err => console.log(err));

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const Promotion = require('../models/Promotion');
-const ensureAuthenticated = require('../helpers/auth');
+const ensureAuthenticated = require('../helpers/authenticate');
 const flashMessage = require('../helpers/messenger');
 require('dotenv').config();
 const fetch = require('node-fetch');
