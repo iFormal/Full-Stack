@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const flashMessage = require('../helpers/messenger');
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
 const Menu = require('../models/Menu');
 const ensureAuthenticated = require('../helpers/auth');
 
@@ -15,6 +13,14 @@ router.get('/listMenus2', ensureAuthenticated, (req, res) => {
         .then((menus) => {
             // pass object to listMenus.handlebar
             res.render('user/listMenus2', { menus });
+        })
+        .catch(err => console.log(err));
+});
+
+router.get('/profile/:id', ensureAuthenticated, (req, res) => {
+    User.findByPk(req.params.id)
+        .then((users) => {
+            res.render('user/profile', { users });
         })
         .catch(err => console.log(err));
 });
@@ -163,10 +169,10 @@ router.get('/home', (req, res) => {
 // });
 
 router.get('/logout', (req, res, next) => {
-    req.logout(function(err) {
+    req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/');
-      });
+    });
 });
 
 module.exports = router;
