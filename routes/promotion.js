@@ -17,7 +17,7 @@ router.get('/listPromotions', ensureAuthenticated, (req, res) => {
         raw: true
     })
         .then((promotions) => {
-            // pass object to listVideos.handlebar
+            // pass object to listPromotions.handlebar
             res.render('promotion/listPromotions', { promotions });
         })
         .catch(err => console.log(err));
@@ -52,7 +52,6 @@ router.get('/userInterface', ensureAuthenticated, (req, res) => {
         raw: true
     })
         .then((promotions) => {
-            // pass object to listVideos.handlebar
             res.render('promotion/userInterface', { promotions });
         })
         .catch(err => console.log(err));
