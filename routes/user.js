@@ -74,7 +74,7 @@ router.post('/addProduct', ensureAuthenticated, (req, res) => {
     // }
 });
 
-router.get('/minusOne/:id', ensureAuthenticated, async function (req, res) {
+router.get('/minusQuantity/:id', ensureAuthenticated, async function (req, res) {
     try {
         let cart = await Cart.findByPk(req.params.id);
         if (!cart) {
@@ -100,7 +100,7 @@ router.get('/minusOne/:id', ensureAuthenticated, async function (req, res) {
     }
 });
 
-router.get('/addOne/:id', ensureAuthenticated, async function (req, res) {
+router.get('/addQuantity/:id', ensureAuthenticated, async function (req, res) {
     try {
         let cart = await Cart.findByPk(req.params.id);
         if (!cart) {
