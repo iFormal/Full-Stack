@@ -6,7 +6,7 @@ const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const ensureAuthenticated = require('../helpers/authenticate');
 
-router.get('/listMenus2', ensureAuthenticated, (req, res) => {
+router.get('/addProduct', ensureAuthenticated, (req, res) => {
     Menu.findAll({
         order: [['price']],
         raw: true
@@ -48,10 +48,9 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.get('/addProduct', ensureAuthenticated, (req, res) => {
+router.post('/addProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
-    let description = req.body.description;
-    let quantity = req.body.quantity;
+    let quantity = 1;
     let price = req.body.price;
     let userId = req.user.id;
     let productid = req.body.id;
@@ -63,7 +62,7 @@ router.get('/addProduct', ensureAuthenticated, (req, res) => {
     // else{
     Cart.create(
         {
-            name, description, quantity, price, userId, productid
+            name, quantity, price, userId, productid
         }
     )
         .then((cart) => {

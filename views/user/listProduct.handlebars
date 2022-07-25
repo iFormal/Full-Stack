@@ -21,12 +21,12 @@
 								value="{{price}}" />${{ price }}
 						</td>
 						<td>
-							<a href="/order/minusOne/{{id}}">-</a>
+							<a href="/user/minusOne/{{id}}">-</a>
 							<input type="hidden" id="quantity" name="quantity" value="{{quantity}}"/> {{quantity}}
-							<a href="/order/addOne/{{id}}">+</a>
+							<a href="/user/addOne/{{id}}">+</a>
 						</td>
 						<td>
-							<a href="/order/deleteProduct/{{id}}" class="card-link" data-toggle="confirmation"
+							<a href="/user/deleteProduct/{{id}}" class="card-link" data-toggle="confirmation"
 								data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
 								Delete
@@ -58,7 +58,6 @@
 				<input type="safety pin" name="pin" id="pin" minlength="3" maxlength="3" class="form-control" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
-
 		</div>
 	</form>
 	{{else}}

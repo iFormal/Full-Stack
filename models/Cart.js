@@ -5,7 +5,6 @@ const db = require('../config/DBConfig');
 const Cart = db.define('cart',
     {
         name: { type: Sequelize.STRING },
-        description: { type: Sequelize.STRING },
         quantity: { type: Sequelize.INTEGER },
         price: { type: Sequelize.DECIMAL(10, 2) },
         productid: { type: Sequelize.STRING }
