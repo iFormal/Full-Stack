@@ -1,2 +1,21 @@
-<h1>Hello, {{users.name}}</h1>
-<p> Welcome to your profile. </p>
+<div class="heading">
+    <h1>{{users.name}}'s Profile</h1>
+    <a href = "{{users.id}}/editProfile">Edit Profile</a>
+</div>
+
+<div class=".col-sm-5 .col-md-6" style="display: flex; flex-direction: row;">
+    <div class="card card-body">
+        <div class="col-xl-12">
+            <div class="text-danger small mb-3" id="posterErr" style="display:none"></div>
+            <img id="poster" src="{{users.profilePic}}" alt="Poster" class="border img-thumbnail img-fluid"
+                onerror="this.src='/img/no-image.jpg'">
+        </div>
+    </div>
+    <div class="card card-body">
+        <h4 style="text-decoration:underline;">Order History</h4>
+    </div>
+</div>
+<p></p>
+<div class="card card-body">
+    <h4 style="text-decoration: underline;">Reviews</h4>
+</div>

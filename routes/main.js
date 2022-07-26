@@ -4,6 +4,8 @@ const flashMessage = require('../helpers/messenger');
 const passport = require('passport');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const upload = require('../helpers/imageUpload');
 
 // Required for email verification
 require('dotenv').config();
@@ -85,59 +87,59 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async function (req, res) {
-    let { name, email, password, password2, status } = req.body;
+	let { name, email, password, password2, status, profilePic } = req.body;
 
-    let isValid = true;
-    if (password.length < 6) {
-        flashMessage(res, 'error', 'Password must be at least 6 char-acters');
-        isValid = false;
-    }
-    if (password != password2) {
-        flashMessage(res, 'error', 'Passwords do not match');
-        isValid = false;
-    }
-    if (!isValid) {
-        res.render('register', {
-            name, email
-        });
-        return;
-    }
+	let isValid = true;
+	if (password.length < 6) {
+		flashMessage(res, 'error', 'Password must be at least 6 char-acters');
+		isValid = false;
+	}
+	if (password != password2) {
+		flashMessage(res, 'error', 'Passwords do not match');
+		isValid = false;
+	}
+	if (!isValid) {
+		res.render('register', {
+			name, email
+		});
+		return;
+	}
 
-    try {
-        // If all is well, checks if user is already registered
-        let user = await User.findOne({ where: { email: email } });
-        if (user) {
-            // If user is found, that means email has already been registered
-            flashMessage(res, 'error', email + ' already registered');
-            res.render('register', {
-                name, email
-            });
-        }
-        else {
-            // Create new user record 
-            var salt = bcrypt.genSaltSync(10);
-            var hash = bcrypt.hashSync(password, salt);
-            // Use hashed password
-            let user = await User.create({ name, email, status, password: hash, verified: 0 });
-            // Send email
-            let token = jwt.sign(email, process.env.APP_SECRET);
-            let url = `${process.env.BASE_URL}:${process.env.PORT}/verify/${user.id}/${token}`;
-            sendEmail(user.email, url)
-                .then(response => {
-                    console.log(response);
-                    flashMessage(res, 'success', user.email + ' registered successfully');
-                    res.redirect('/login');
-                })
-                .catch(err => {
-                    console.log(err);
-                    flashMessage(res, 'error', 'Error when sending email to ' + user.email);
-                    res.redirect('/');
-                });
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
+	try {
+		// If all is well, checks if user is already registered
+		let user = await User.findOne({ where: { email: email } });
+		if (user) {
+			// If user is found, that means email has already been registered
+			flashMessage(res, 'error', email + ' already registered');
+			res.render('register', {
+				name, email
+			});
+		}
+		else {
+			// Create new user record 
+			var salt = bcrypt.genSaltSync(10);
+			var hash = bcrypt.hashSync(password, salt);
+			// Use hashed password
+			let user = await User.create({ name, email, status, password: hash, profilePic, verified: 0 });
+			// Send email
+			let token = jwt.sign(email, process.env.APP_SECRET);
+			let url = `${process.env.BASE_URL}:${process.env.PORT}/verify/${user.id}/${token}`;
+			sendEmail(user.email, url)
+				.then(response => {
+					console.log(response);
+					flashMessage(res, 'success', user.email + ' registered successfully');
+					res.redirect('/login');
+				})
+				.catch(err => {
+					console.log(err);
+					flashMessage(res, 'error', 'Error when sending email to ' + user.email);
+					res.redirect('/');
+				});
+		}
+	}
+	catch (err) {
+		console.log(err);
+	}
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -170,10 +172,27 @@ router.post('/flash', (req, res) => {
 });
 
 router.get('/logout', (req, res, next) => {
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
+	req.logout(function (err) {
+		if (err) { return next(err); }
+		res.redirect('/');
+	});
 });
+
+// router.post('/upload', (req, res) => {
+//     // Creates user id directory for upload if not exist
+//     if (!fs.existsSync('./public/uploads/' + req.user.id)) {
+//         fs.mkdirSync('./public/uploads/' + req.user.id, { recursive: true });
+//     }
+
+//     upload(req, res, (err) => {
+//         if (err) {
+//             // e.g. File too large
+//             res.json({ file: '/img/no-image.jpg', err: err });
+//         }
+//         else {
+//             res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
+//         }
+//     });
+// });
 
 module.exports = router;

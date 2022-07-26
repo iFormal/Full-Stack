@@ -6,6 +6,8 @@ const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const flashMessage = require('../helpers/messenger');
 const ensureAuthenticated = require('../helpers/authenticate');
+const fs = require('fs');
+const upload = require('../helpers/imageUpload');
 
 router.get('/listMenus2', ensureAuthenticated, (req, res) => {
     Menu.findAll({
@@ -318,6 +320,23 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
 //         failureFlash: true
 //     })(req, res, next);
 // });
+
+router.post('/upload', ensureAuthenticated, (req, res) => {
+    // Creates user id directory for upload if not exist
+    if (!fs.existsSync('./public/uploads/' + req.user.id)) {
+        fs.mkdirSync('./public/uploads/' + req.user.id, { recursive: true });
+    }
+
+    upload(req, res, (err) => {
+        if (err) {
+            // e.g. File too large
+            res.json({ file: '/img/no-image.jpg', err: err });
+        }
+        else {
+            res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
+        }
+    });
+});
 
 router.get('/logout', (req, res, next) => {
     req.logout(function (err) {
