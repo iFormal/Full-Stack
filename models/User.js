@@ -8,7 +8,7 @@ const User = db.define('user',
         email: { type: Sequelize.STRING },
         verified: { type: Sequelize.BOOLEAN },
         password: { type: Sequelize.STRING },
-        profilePic: { type: Sequelize.STRING}, 
+        posterURL: { type: Sequelize.STRING}, 
         status: { type: Sequelize.STRING}
     });
 
