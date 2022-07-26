@@ -45,6 +45,11 @@ $('#posterUpload').on('change', function () {
         method: 'POST',
         body: formdata
     })
+    fetch('/user/upload',{
+        method: 'POST',
+        body: formdata
+    })
+    
         .then(res => res.json())
         .then((data) => {
             $('#poster').attr('src', data.file);
