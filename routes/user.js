@@ -28,6 +28,48 @@ router.get('/profile/:id', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
+router.get('/profile/editProfile/:id', ensureAuthenticated, (req, res) => {
+    User.findByPk(req.params.id)
+        .then((users) => {
+            res.render('user/editProfile', { users })
+        })
+        .catch(err => console.log(err));
+})
+
+router.post('/profile/editProfile/:id', async function (req, res) {
+    let name = req.body.name;
+    let email = req.body.email;
+    let posterURL = req.body.posterURL;
+
+    try {
+        // If all is well, checks if user is already registered
+        let user = await User.findOne({ where: {email: email} });
+        if (user.email != email) {
+            // If user is found, that means email has already been registered
+            flashMessage(res, 'error', email + ' is already registered. Please try again.');
+            res.render('user/editProfile',{
+            name, posterURL
+                
+            });
+        }
+        else {
+            // Create new user record
+            User.update(
+                { name, posterURL, email },
+                { where: { id: req.params.id } }
+            )
+                .then((result) => {
+                    console.log(result[0] + ' user updated!');
+                    flashMessage(res, 'success', name + '\'s profile has been updated!');
+                    res.redirect('/user/profile/:id');
+                })
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
 router.get('/home', (req, res) => {
     const title = 'Placeholder Carousel';
     // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
@@ -162,7 +204,7 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
 router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
     let quantity = req.body.quantity;
-    let cart = [name,'X',quantity];
+    let cart = [name, 'X', quantity];
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
 
@@ -176,7 +218,7 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
             res.redirect('/user/receipt',);
             Cart.destroy(
                 {
-                    where : {},
+                    where: {},
                     truncate: true
                 }
             );

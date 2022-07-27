@@ -2,12 +2,12 @@
 
 <div class="heading">
     <h1>User Profile</h1>
-    <a href="{{users.id}}/editProfile">Edit Profile</a>
+    <a href="editProfile/{{users.id}}">Edit Profile</a>
 </div>
 
 <div class=".col-md-20" style="display: flex; flex-direction: row;">
     <div class="text-danger small mb-3" id="posterErr" style="display:none"></div>
-    <img id="poster" src="{{users.profilePic}}" alt="Poster" class="border img-thumbnail img-fluid"
+    <img id="poster" src="{{users.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" style="max-height:200px"
         onerror="this.src='/img/no-image.jpg'">
     <div class="card card-body">
         <div class="col-xl-10">

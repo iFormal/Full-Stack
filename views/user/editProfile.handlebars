@@ -1,0 +1,47 @@
+<div class="menu">
+	<div class="heading">
+		<h1>Edit Profile</h1>
+	</div>
+	<div class="container">
+		<div class="card card-body">
+			<form action="" method="post">
+				<div class="form-group">
+					{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+					<label class="font-italic" for="name">New Name:</label>
+					<input type="text" class="form-control" id="exampleFormControlInput1" name="name" required>
+					<p></p>
+					<label class="font-italic" for="email">Your Email (cannot be changed):</label>
+					<input type="email" class="form-control" id="exampleFormControlInput2" name="email" readonly value = {{user.email}}>
+					<p></p>
+					<label class="font-italic" for="email">Profile Picture:</label>
+					<div class=".col-md-20" style="display: flex; flex-direction: row;">
+						<div class="custom-file mb-2">
+							<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"
+								accept="image/png,image/jpeg,image/jpg,image/gif">
+							<label class="custom-file-label" for="customFile">Choose File</label>
+						</div>
+						<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
+						<img id="poster" src="{{user.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" style="max-height:160px"
+							onerror="this.src='/img/no-image.jpg' ">
+						{{!—- Hidden field to submit URL of poster to the server --}}
+						<input id="posterURL" type="hidden" name="posterURL" value="{{user.posterURL}}">
+					</div>
+				</div>
+
+
+				<button id="btnSubmit" type="submit" class="btn btn-primary">Save
+		</div>
+		<br>
+		</button>
+		</form>
+	</div>
+</div>
+</div>
+
+<script>
+	$('#datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		uiLibrary: 'bootstrap4',
+		value: moment().format('DD/MM/YYYY'),
+	});
+</script>
