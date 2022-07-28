@@ -45,8 +45,8 @@ router.get('/profile/:id', ensureAuthenticated, (req, res) => {
 
 router.get('/profile/editProfile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
-        .then((users) => {
-            res.render('user/editProfile', { users })
+        .then((user) => {
+            res.render('user/editProfile', { user })
         })
         .catch(err => console.log(err));
 })
