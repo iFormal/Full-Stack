@@ -269,7 +269,7 @@ router.get('/editStore/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
                 res.redirect('/admin/listStores');
                 return;
             }
-            if (req.user.id != menu.userId) {
+            if (req.user.id != store.userId) {
                 flashMessage(res, 'error', 'Unauthorised access');
                 res.redirect('/admin/listStores');
                 return;
