@@ -6,13 +6,13 @@
     <style>
         .carousel-inner>.item>img,
         .carousel-inner>.item>a>img {
-            width: 150%;
-            height: 250px;
+            width: 1280px;
+            height: 720px;
             margin: auto;
         }
 
         .container {
-            width: 70%;
+            width: 100%;
         }
     </style>
 
@@ -32,14 +32,14 @@
 
                 {{#if @first}}
                 <div class="item active">
-                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2" width="460" height="345">
+                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2">
                     <div class="carousel-caption">
                         <h3>{{title}}</h3>
                     </div>
                 </div>
                 {{else}}
                 <div class="item">
-                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2" width="460" height="345">
+                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2">
                     <div class="carousel-caption">
                         <h3>{{title}}</h3>
                     </div>

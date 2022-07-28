@@ -8,6 +8,66 @@ const flash = require('flash');
 const Menu = require('../models/Menu');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
+const bcrypt = require('bcryptjs');
+
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
+
+function sendEmail(toEmail, url) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const message = {
+        to: toEmail,
+        from: `South Canteen <${process.env.SENDGRID_SENDER_EMAIL}>`,
+        subject: 'Authorize New Admin Account',
+        html: `A new account has been registered as an Admin role..<br><br> Please <a href=\"${url}"><strong>authorize</strong></a> the account.`
+    };
+
+    // Returns the promise from SendGrid to the calling function
+    return new Promise((resolve, reject) => {
+        sgMail.send(message)
+            .then(response => resolve(response))
+            .catch(err => reject(err));
+    });
+}
+
+router.get('/verify/:userId/:token', async function (req, res) {
+    let id = req.params.userId;
+    let token = req.params.token;
+
+    try {
+        // Check if user is found
+        let user = await Users.findByPk(id);
+        if (!user) {
+            flashMessage(res, 'error', 'User not found');
+            res.redirect('/login');
+            return;
+        }
+        // Check if user has been verified
+        if (user.verified) {
+            flashMessage(res, 'info', 'User already verified');
+            res.redirect('/login');
+            return;
+        }
+        // Verify JWT token sent via URL 
+        let authData = jwt.verify(token, process.env.APP_SECRET);
+        if (authData != user.email) {
+            flashMessage(res, 'error', 'Unauthorised Access');
+            res.redirect('/login');
+            return;
+        }
+
+        let result = await Users.update(
+            { verified: 1 },
+            { where: { id: user.id } });
+        console.log(result[0] + ' user updated');
+        flashMessage(res, 'success', user.email + ' verified. Please login');
+        res.redirect('/login');
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 // router.get('/listAcc', ensureAuthenticated, (req, res) => {
 //     Users.findAll({
 //         where: { userId: req.user.id },
@@ -206,6 +266,66 @@ router.post('/upload', ensureAuthenticated, ensureAuthorized, (req, res) => {
             res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
         }
     });
+});
+
+router.get('/registerAdmin', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    res.render('admin/registerAdmin');
+});
+
+router.post('/registerAdmin', ensureAuthenticated, ensureAuthorized, async function (req, res) {
+    let { name, email, password, password2, status, posterURL } = req.body;
+
+    let isValid = true;
+    if (password.length < 6) {
+        flashMessage(res, 'error', 'Password must be at least 6 characters');
+        isValid = false;
+    }
+    if (password != password2) {
+        flashMessage(res, 'error', 'Passwords do not match');
+        isValid = false;
+    }
+    if (!isValid) {
+        res.render('admin/registerAdmin', {
+            name, email
+        });
+        return;
+    }
+
+    try {
+        // If all is well, checks if user is already registered
+        let user = await Users.findOne({ where: { email: email } });
+        if (user) {
+            // If user is found, that means email has already been registered
+            flashMessage(res, 'error', email + ' already registered');
+            res.render('admin/registerAdmin', {
+                name, email
+            });
+        }
+        else {
+            // Create new user record 
+            var salt = bcrypt.genSaltSync(10);
+            var hash = bcrypt.hashSync(password, salt);
+            // Use hashed password
+            let user = await Users.create({ name, email, status, password: hash, posterURL, verified: 0 });
+            // Send email
+            let token = jwt.sign(email, process.env.APP_SECRET);
+            let url = `${process.env.BASE_URL}:${process.env.PORT}/verify/${user.id}/${token}`;
+            sendEmail("donyeozhiwei@gmail.com", url)
+                .then(response => {
+                    console.log(response);
+                    flashMessage(res, 'success', user.email + ' registered successfully');
+                    res.redirect('/admin/listAcc');
+                })
+                .catch(err => {
+                    console.log(err);
+                    flashMessage(res, 'error', 'Error when sending email to ' + user.email);
+                    res.redirect('admin/registerAdmin');
+                });
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 module.exports = router;

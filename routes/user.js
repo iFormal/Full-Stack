@@ -20,6 +20,8 @@ router.get('/listMenus2', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
+
+
 router.get('/profile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
         .then((users) => {

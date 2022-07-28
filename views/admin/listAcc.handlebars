@@ -2,9 +2,12 @@
     {{#if users}}
     <div class="card card-body bg-dark">
         <h3 class="text-white text-center">User Accounts</h3>
+        <div class="d-grid gap-2">
+            <a type="button" href = "/admin/registerAdmin" class="btn btn-primary btn-lg btn-block">Add Admin Account</a>
+        </div>
         {{#each users}}
         <div class="card border-primary mb-2 w-100 mx-auto">
-            <div class="card-header">   
+            <div class="card-header">
                 <p></p>
                 <h5 class="card-title">User: {{ name }}</h5>
                 {{#if status}}
@@ -27,7 +30,8 @@
                             </a>
                         </p>
                         <p>
-                            <a href="/admin/deleteAcc/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+                            <a href="/admin/deleteAcc/{{id}}" class="card-link" data-toggle="confirmation"
+                                data-title="Confirm delete?">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                             </a>
@@ -45,7 +49,7 @@
 </div>
 
 <script>
-	$('[data-toggle=confirmation]').confirmation({
-		rootSelector: '[data-toggle=confirmation]',
-	});
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+    });
 </script>
