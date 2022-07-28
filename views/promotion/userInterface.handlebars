@@ -1,96 +1,65 @@
 <div class="container">
-
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            * {
-                box-sizing: border-box;
-            }
-
-            body {
-                font-family: Verdana, sans-serif;
-            }
-
-            .mySlides {
-                display: none;
-            }
-
-            img {
-                vertical-align: middle;
-            }
-
-            /* Slideshow container */
-            .slideshow-container {
-                max-width: 1000px;
-                position: relative;
-                margin: auto;
-            }
-
-            /* Caption text */
-            .text {
-                color: #f2f2f2;
-                font-size: 15px;
-                padding: 8px 12px;
-                position: absolute;
-                bottom: 8px;
-                width: 100%;
-                text-align: center;
-            }
-
-            /* On smaller screens, decrease text size */
-            @media only screen and (max-width: 300px) {
-                .text {
-                    font-size: 11px
-                }
-            }
-        </style>
-    </head>
-
     {{#if promotions}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
+            width: 150%;
+            height: 250px;
+            margin: auto;
+        }
 
-    <body>
+        .container {
+            width: 70%;
+        }
+    </style>
 
-        <h2 style="text-align:center">Promotions</h2>
-
-        <div class="slideshow-container">
-
-            {{#each promotions}}
-            <div class="mySlides" style="text-align:center">
-                <div class="dot">
-                    <a href="/promotion/details/{{id}}"><img src="{{posterURL}}" alt="Poster"
-                            class="img-thumbnail img-fluid mb-2" style="width: 500px"></a>
-                </div>
-            </div>
-            {{/each}}
-
-
-        </div>
+    <div class="container">
         <br>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {{#each promotions}}
+                <li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
+                {{/each}}
+            </ol>
 
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                {{#each promotions}}
 
-        <script>
-            let slideIndex = 0;
-            showSlides();
+                {{#if @first}}
+                <div class="item active">
+                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2" width="460" height="345">
+                    <div class="carousel-caption">
+                        <h3>{{title}}</h3>
+                    </div>
+                </div>
+                {{else}}
+                <div class="item">
+                    <img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2" width="460" height="345">
+                    <div class="carousel-caption">
+                        <h3>{{title}}</h3>
+                    </div>
+                </div>
+                {{/if}}
 
-            function showSlides() {
-                let i;
-                let slides = document.getElementsByClassName("mySlides");
-                let dots = document.getElementsByClassName("dot");
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                slideIndex++;
-                if (slideIndex > slides.length) { slideIndex = 1 }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-                setTimeout(showSlides, 2000); // Change image every 2 seconds
-            }
-        </script>
+                {{/each}}
+            </div>
 
-    </body>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
 
 </div>
 {{else}}

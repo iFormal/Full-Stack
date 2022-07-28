@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
 const moment = require('moment');
 const Promotion = require('../models/Promotion');
 const ensureAuthenticated = require('../helpers/authenticate');
@@ -46,7 +47,7 @@ router.post('/addPromotion', (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.get('/userInterface', ensureAuthenticated, (req, res) => {
+router.get('/userInterface', (req, res) => {
     Promotion.findAll({
         order: [['dateRelease', 'DESC']],
         raw: true
