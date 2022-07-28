@@ -7,7 +7,7 @@
 
 <div class=".col-md-20" style="display: flex; flex-direction: row;">
     <div class="text-danger small mb-3" id="posterErr" style="display:none"></div>
-    <img id="poster" src="{{users.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" style="max-height:200px"
+    <img id="poster" src="{{users.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" style="max-height:250px; max-width:250px;"
         onerror="this.src='/img/no-image.jpg'">
     <div class="card card-body">
         <div class="col-xl-10">
@@ -22,6 +22,9 @@
     </div>
     <div class="card card-body col-xl-4">
         <h4 style="text-decoration:underline;">Order History</h4>
+        {{orders.cart}}
+
+
     </div>
 </div>
 <p></p>
