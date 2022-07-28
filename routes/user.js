@@ -6,7 +6,7 @@ const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const flashMessage = require('../helpers/messenger');
 const ensureAuthenticated = require('../helpers/authenticate');
-const fs = require('fs');
+const fs = require('fs'); 1
 const upload = require('../helpers/imageUpload');
 
 router.get('/listMenus2', ensureAuthenticated, (req, res) => {
@@ -23,7 +23,10 @@ router.get('/listMenus2', ensureAuthenticated, (req, res) => {
 router.get('/profile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
         .then((users) => {
-            res.render('user/profile', { users });
+            Order.findByPk(req.params.id)
+            .then((orders) => {
+                res.render('user/profile', { users, orders });
+            })
         })
         .catch(err => console.log(err));
 });
@@ -43,13 +46,13 @@ router.post('/profile/editProfile/:id', async function (req, res) {
 
     try {
         // If all is well, checks if user is already registered
-        let user = await User.findOne({ where: {email: email} });
+        let user = await User.findOne({ where: { email: email } });
         if (user.email != email) {
             // If user is found, that means email has already been registered
             flashMessage(res, 'error', email + ' is already registered. Please try again.');
-            res.render('user/editProfile',{
-            name, posterURL
-                
+            res.render('user/editProfile', {
+                name, posterURL
+
             });
         }
         else {
@@ -159,7 +162,7 @@ router.get('/addQuantity/:id', ensureAuthenticated, async function (req, res) {
             return;
         }
         let d = await Cart.increment({ quantity: 1 }, { where: { id: cart.id } });
-        console.log(d + ' product mius 1');
+        console.log(d + ' product minus 1');
         res.redirect('/user/listProduct');
     }
     catch (err) {
