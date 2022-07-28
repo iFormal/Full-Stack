@@ -6,6 +6,7 @@ const Users = require('../models/User');
 const flashMessage = require('../helpers/messenger');
 const flash = require('flash');
 const Menu = require('../models/Menu');
+const Store = require('../models/Store')
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const bcrypt = require('bcryptjs');
@@ -171,6 +172,18 @@ router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
         .catch(err => console.log(err));
 });
 
+router.get('/listStores', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    Store.findAll({
+        order: [['name']],
+        raw: true
+    })
+        .then((stores) => {
+            // pass object to listStores.handlebar
+            res.render('admin/listStores', { stores });
+        })
+        .catch(err => console.log(err));
+});
+
 router.get('/addMenu', ensureAuthenticated, ensureAuthorized, (req, res) => {
     res.render('admin/addMenu');
 });
@@ -188,6 +201,26 @@ router.post('/addMenu', ensureAuthenticated, (req, res) => {
         .then((menu) => {
             console.log(menu.toJSON());
             res.redirect('/admin/listMenus');
+        })
+        .catch(err => console.log(err))
+});
+
+router.get('/addStore', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    res.render('admin/addStore');
+});
+
+router.post('/addStore', ensureAuthenticated, (req, res) => {
+    let name = req.body.name;
+    let category = req.body.category;
+    let posterURL = req.body.posterURL;
+    let userId = req.user.id;
+
+    Store.create(
+        { name, category, posterURL, userId }
+    )
+        .then((store) => {
+            console.log(store.toJSON());
+            res.redirect('/admin/listStores');
         })
         .catch(err => console.log(err))
 });
@@ -228,6 +261,41 @@ router.post('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
         .catch(err => console.log(err));
 });
 
+router.get('/editStore/:id', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    Store.findByPk(req.params.id)
+        .then((store) => {
+            if (!store) {
+                flashMessage(res, 'error', 'Store does not exist');
+                res.redirect('/admin/listStores');
+                return;
+            }
+            if (req.user.id != menu.userId) {
+                flashMessage(res, 'error', 'Unauthorised access');
+                res.redirect('/admin/listStores');
+                return;
+            }
+
+            res.render('admin/editStore', { store });
+        })
+        .catch(err => console.log(err));
+});
+
+router.post('/editStore/:id', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    let name = req.body.name;
+    let category = req.body.category;
+    let posterURL = req.body.posterURL;
+
+    Store.update(
+        { name, category, posterURL },
+        { where: { id: req.params.id } }
+    )
+        .then((result) => {
+            console.log(result[0] + ' store updated');
+            res.redirect('/admin/listStores');
+        })
+        .catch(err => console.log(err));
+});
+
 router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
     try {
         let menu = await Menu.findByPk(req.params.id);
@@ -245,6 +313,29 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
         let result = await Menu.destroy({ where: { id: menu.id } });
         console.log(result + ' menu deleted');
         res.redirect('/admin/listMenus');
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
+router.get('/deleteStore/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
+    try {
+        let store = await Store.findByPk(req.params.id);
+        if (!store) {
+            flashMessage(res, 'error', 'Store does not exist');
+            res.redirect('/admin/listStores');
+            return;
+        }
+        if (req.user.id != store.userId) {
+            flashMessage(res, 'error', 'Unauthorised access');
+            res.redirect('/admin/listStores');
+            return;
+        }
+
+        let result = await Store.destroy({ where: { id: store.id } });
+        console.log(result + ' store deleted');
+        res.redirect('/admin/listStores');
     }
     catch (err) {
         console.log(err);
