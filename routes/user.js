@@ -4,6 +4,7 @@ const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
+const Store = require('../models/Store')
 const flashMessage = require('../helpers/messenger');
 const ensureAuthenticated = require('../helpers/authenticate');
 const fs = require('fs'); 1
@@ -21,6 +22,15 @@ router.get('/listMenus2', ensureAuthenticated, (req, res) => {
 });
 
 
+router.get('/listStores2', ensureAuthenticated, (req, res) => {
+    Store.findAll({
+        order:  [['name']],
+        raw: true
+    })
+        .then((stores) => {
+            res.render('user/listStores2', { stores })
+        })
+})
 
 router.get('/profile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
