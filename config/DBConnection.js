@@ -15,6 +15,12 @@ const setUpDB = (drop) => {
             Defines the relationship where a user has many menus. 
             The primary key from user will be a foreign key in menu. 
             */
+
+            Store.hasMany(Menu);
+            Menu.belongsTo(Store);
+            mySQLDB.sync({
+                force: drop
+            });
             User.hasMany(Store);
             Store.belongsTo(User);
             mySQLDB.sync({
