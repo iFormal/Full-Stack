@@ -1,4 +1,5 @@
-{{#if user.status}}
+{{#if user}}
+{{#if user.status includeZero=false}}
 <div class="sidebar">
     <div class="logo_content">
         <div class="logo">
@@ -53,7 +54,6 @@
     </ul>
 </div>
 {{else}}
-{{#if user}}
 <nav>
     <label class="logo2">SouthCanteen</label>
     <ul>
@@ -81,6 +81,8 @@
         </li>
     </ul>
 </nav>
+{{/if}}
+
 {{else}}
 
 
@@ -99,7 +101,6 @@
     </ul>
 </nav>
 
-{{/if}}
 {{/if}}
 
 {{!-- <div>

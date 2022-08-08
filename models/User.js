@@ -9,7 +9,7 @@ const User = db.define('user',
         verified: { type: Sequelize.BOOLEAN },
         password: { type: Sequelize.STRING },
         posterURL: { type: Sequelize.STRING}, 
-        status: { type: Sequelize.STRING}
+        status: { type: Sequelize.INTEGER(1)}
     });
 
 module.exports = User;
