@@ -14,7 +14,8 @@
 					{{#each cart}}
 					<tr>
 						<td>
-							<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}" />{{name}}
+							<input hidden="hidden" class="form-control mb-1" id="name" name="name"
+								value="{{name}}" />{{name}}
 						</td>
 						<td>
 							<input hidden="hidden" class="form-control mb-1" id="price" name="price"
@@ -22,7 +23,7 @@
 						</td>
 						<td>
 							<a href="/user/minusQuantity/{{id}}">-</a>
-							<input type="hidden" id="quantity" name="quantity" value="{{quantity}}"/> {{quantity}}
+							<input type="hidden" id="quantity" name="quantity" value="{{quantity}}" /> {{quantity}}
 							<a href="/user/addQuantity/{{id}}">+</a>
 						</td>
 						<td>
@@ -38,7 +39,8 @@
 						<th> </th>
 						<th> </th>
 						<th>Total Price:</th>
-						<th> <input hidden="hidden" class="form-control mb-1" id="totalprice" name="totalprice" value="{{totalprice}}"/>${{totalprice}}</th>
+						<th> <input hidden="hidden" class="form-control mb-1" id="totalprice" name="totalprice"
+								value="{{totalprice}}" />${{totalprice}}</th>
 					</tr>
 			</table>
 		</div>
@@ -70,8 +72,18 @@
 		rootSelector: '[data-toggle=confirmation]',
 	});
 
-	function descreseQty(){
-		var qty = 
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = '0' + dd
 	}
+	if (mm < 10) {
+		mm = '0' + mm
+	}
+
+	today = yyyy + '-' + mm + '-' + dd;
+	document.getElementById("expiredate").setAttribute("min", today);
 
 </script>
