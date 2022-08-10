@@ -238,8 +238,8 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
             res.redirect('/user/receipt',);
             Cart.destroy(
                 {
-                    where: {},
-                    truncate: true
+                    where: {
+                        userId: userId},
                 }
             );
         })
