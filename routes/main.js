@@ -3,6 +3,7 @@ const router = express.Router();
 const flashMessage = require('../helpers/messenger');
 const passport = require('passport');
 const User = require('../models/User');
+const Store = require('../models/Store');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');

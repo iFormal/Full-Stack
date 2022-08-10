@@ -263,37 +263,43 @@ router.post('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
 
 router.get('/editStore/:id', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Store.findByPk(req.params.id)
-        .then((store) => {
-            if (!store) {
-                flashMessage(res, 'error', 'Store does not exist');
-                res.redirect('/admin/listStores');
-                return;
-            }
-            if (req.user.id != store.userId) {
-                flashMessage(res, 'error', 'Unauthorised access');
-                res.redirect('/admin/listStores');
-                return;
-            }
-
-            res.render('admin/editStore', { store });
+        .then((stores) => {
+            res.render('admin/editStore', { stores });
         })
         .catch(err => console.log(err));
 });
 
-router.post('/editStore/:id', ensureAuthenticated, ensureAuthorized, (req, res) => {
+router.post('/editStore/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
     let name = req.body.name;
     let category = req.body.category;
-    let posterURL = req.body.posterURL;
+    let posterURL = req.body.posterURL
 
-    Store.update(
-        { name, category, posterURL },
-        { where: { id: req.params.id } }
-    )
-        .then((result) => {
-            console.log(result[0] + ' store updated');
-            res.redirect('/admin/listStores');
-        })
-        .catch(err => console.log(err));
+    try {
+        // If all is well, checks if user is already registered
+        let store = await Store.findOne({ where: { name: name } });
+        if (store) {
+            // If user is found, that means email has already been registered
+            flashMessage(res, 'error', name + ' is already registered. Please try again.');
+            res.render('admin/editStore', {
+                name
+            });
+        }
+        else {
+            // Update new user record
+            Store.update(
+                { name, category, posterURL },
+                { where: { id: req.params.id } }
+            )
+                .then((result) => {
+                    console.log(result[0] + ' store updated!');
+                    flashMessage(res, 'success', name + ' has been updated!');
+                    res.redirect('/admin/listStores');
+                })
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
@@ -417,6 +423,46 @@ router.post('/registerAdmin', ensureAuthenticated, ensureAuthorized, async funct
     catch (err) {
         console.log(err);
     }
+});
+
+router.get('/registerStore', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    res.render('admin/registerStore');
+});
+
+router.post('/registerStore', async function (req, res) {
+	let { name, category, posterURL } = req.body;
+
+	let isValid = true;
+	if (category == null) {
+		flashMessage(res, 'error', 'Category cannot be empty.');
+		isValid = false;
+	}
+	if (!isValid) {
+		res.render('admin/registerStore', {
+			name
+		});
+		return;
+	}
+
+	try {
+		// If all is well, checks if store is already registered
+		let store = await Store.findOne({ where: { name: name } });
+		if (store) {
+			// If store name is found, that means store name has already been registered
+			flashMessage(res, 'error', name + ' already exist');
+			res.render('admin/registerStore', {
+				name
+			});
+		}
+		else {
+		    let store = await Store.create({ name, category, posterURL});
+            flashMessage(res, 'success', store.name + ' registered successfully');
+                    res.redirect('/admin/listStores');
+		}
+	}
+	catch (err) {
+		console.log(err);
+	}
 });
 
 module.exports = router;
