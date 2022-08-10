@@ -226,10 +226,11 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let quantity = req.body.quantity;
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
+    let productid = req.body.id;
 
     Order.create(
         {
-            name, quantity, totalprice, userId
+            name, quantity, totalprice, userId, productid
         }
     )
         .then((order) => {

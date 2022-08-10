@@ -75,6 +75,8 @@
             </div> --}}
           </div>
           <img src="{{posterURL}}" alt="{{name}}" class="product-img">
+          <input hidden="hidden" class="form-control mb-1" id="id" name="id" value="{{id}}"
+					onblur="initialiseTitle()" />
           <input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}"
 					onblur="initialiseTitle()" />{{name}}
           {{!-- Rating System --}}
