@@ -7,6 +7,7 @@ const flashMessage = require('../helpers/messenger');
 const flash = require('flash');
 const Menu = require('../models/Menu');
 const Store = require('../models/Store')
+const Order = require('../models/Order')
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const bcrypt = require('bcryptjs');
@@ -182,6 +183,36 @@ router.get('/listStores', ensureAuthenticated, ensureAuthorized, (req, res) => {
             res.render('admin/listStores', { stores });
         })
         .catch(err => console.log(err));
+});
+
+router.get('/listOrders', ensureAuthenticated, ensureAuthorized, (req, res) => {
+    Order.findAll({
+        groupby: [['userId']],
+        raw: true
+    })
+        .then((order) => {
+            let username = User.findByPk(order.userId)
+            // pass object to listStores.handlebar
+            res.render('admin/listOrders', { order, username });
+        })
+        .catch(err => console.log(err));
+});
+
+router.get('/deleteOrder/:id', ensureAuthenticated, async function (req, res) {
+    try {
+        let order = await Order.findByPk(req.params.id);
+        if (!order) {
+            flashMessage(res, 'error', 'Order not found');
+            res.redirect('/user/listProduct');
+            return;
+        }
+        let result = await Order.destroy({ where: { id: order.id } });
+        console.log(result + ' order deleted');
+        res.redirect('/user/listProduct');
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 router.get('/addMenu', ensureAuthenticated, ensureAuthorized, (req, res) => {

@@ -5,7 +5,7 @@
 		{{#each order}}
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
-				<h5 class="card-title">{{id}}</h5>
+				<h5 class="card-title">{{username}}</h5>
 			</div>
 			<div class="card-body">
                 <table>
@@ -21,14 +21,22 @@
 						<th>Total Price:</th>
 						<th>${{totalprice}}</th>
 					</tr>
+                    <tr>
+                        <td>
+                            <a href="/admin/deleteOrder/{{id}}" class="card-link" data-toggle="confirmation"
+								data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Delete
+							</a>
+                        </td>
+                    </tr>
 				</table>
 			</div>
 		</div>
 		{{/each}}
 	</div>
 	{{else}}
-	<h3>No Orders</h3>
-    <a href="/user/listMenus2"> Start Ordering Now</a>
+	<h3>No Customer Orders</h3>
 	{{/if}}
 </div>
 
