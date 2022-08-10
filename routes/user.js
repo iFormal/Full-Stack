@@ -37,6 +37,11 @@ router.get('/profile/:id', ensureAuthenticated, (req, res) => {
         .then((users) => {
             Order.findByPk(req.params.id)
             .then((orders) => {
+                if (users.id != req.user.id)
+                {
+                    flashMessage(res, 'error', "Unauthorized Access to other's profiles.");
+                    res.redirect('/user/home');
+                }
                 res.render('user/profile', { users, orders });
             })
         })
