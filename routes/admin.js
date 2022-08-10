@@ -191,9 +191,8 @@ router.get('/listOrders', ensureAuthenticated, ensureAuthorized, (req, res) => {
         raw: true
     })
         .then((order) => {
-            let username = User.findByPk(order.userId)
             // pass object to listStores.handlebar
-            res.render('admin/listOrders', { order, username });
+            res.render('admin/listOrders', { order });
         })
         .catch(err => console.log(err));
 });
