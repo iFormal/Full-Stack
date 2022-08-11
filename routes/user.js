@@ -227,13 +227,13 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
 router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
     let quantity = req.body.quantity;
+    const cart = (name.map((value, index) => ([value, quantity[index]]))).toString();
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
-    let productid = req.body.id;
 
     Order.create(
         {
-            name, quantity, totalprice, userId, productid
+            cart, totalprice, userId
         }
     )
         .then((order) => {
