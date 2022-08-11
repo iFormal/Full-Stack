@@ -22,9 +22,16 @@ const upload = require('../helpers/imageUpload');
 // });
 
 router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
-    Menu.findByPk(req.params.id)
-        .then((menu) => {
-            res.render('user/listMenus2', { menu });
+    Store.findByPk(req.params.id)
+        .then((store) => {
+            Menu.findAll({
+                where: {storeId: req.params.id},
+                raw: true
+            })
+            .then((menu) =>
+            {
+                res.render('user/listMenus2', { store, menu });
+            })
         })
         .catch(err => console.log(err));
 });
