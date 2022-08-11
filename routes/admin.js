@@ -217,7 +217,13 @@ router.get('/deleteOrder/:id', ensureAuthenticated, async function (req, res) {
 });
 
 router.get('/addMenu', ensureAuthenticated, ensureAuthorized, (req, res) => {
-    res.render('admin/addMenu');
+    Store.findAll({
+        raw: true
+    }).then((stores) =>
+    {
+        res.render('admin/addMenu', {stores});
+    })
+    .catch(err => console.log(err));
 });
 
 router.post('/addMenu', ensureAuthenticated, (req, res) => {
@@ -225,7 +231,7 @@ router.post('/addMenu', ensureAuthenticated, (req, res) => {
     let description = req.body.description.slice(0, 1999);
     let price = req.body.price;
     let posterURL = req.body.posterURL;
-    let storeId = req.store.id;
+    let storeId = req.body.storeId;
 
     Menu.create(
         { name, description, price, posterURL, storeId }
@@ -346,11 +352,11 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
             res.redirect('/admin/listMenus');
             return;
         }
-        if (req.store.id != menu.storeId) {
-            flashMessage(res, 'error', 'Unauthorised access');
-            res.redirect('/admin/listMenus');
-            return;
-        }
+        // if (req.store.id != menu.storeId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/admin/listMenus');
+        //     return;
+        // }
 
         let result = await Menu.destroy({ where: { id: menu.id } });
         console.log(result + ' menu deleted');
@@ -369,11 +375,11 @@ router.get('/deleteStore/:id', async function (req, res) {
             res.redirect('/admin/listStores');
             return;
         }
-        if (req.user.id != store.userId) {
-            flashMessage(res, 'error', 'Unauthorised access');
-            res.redirect('/admin/listStores');
-            return;
-        }
+        // if (req.user.id != store.userId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/admin/listStores');
+        //     return;
+        // }
 
         let result = await Store.destroy({ where: { id: store.id } });
         console.log(result + ' store deleted');
