@@ -164,6 +164,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Menu.findAll({
+        where: { storeId: req.store.id },
         order: [['price']],
         raw: true
     })
@@ -224,10 +225,10 @@ router.post('/addMenu', ensureAuthenticated, (req, res) => {
     let description = req.body.description.slice(0, 1999);
     let price = req.body.price;
     let posterURL = req.body.posterURL;
-    let userId = req.user.id;
+    let storeId = req.store.id;
 
     Menu.create(
-        { name, description, price, posterURL, userId }
+        { name, description, price, posterURL, storeId }
     )
         .then((menu) => {
             console.log(menu.toJSON());
@@ -264,7 +265,7 @@ router.get('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =>
                 res.redirect('/admin/listMenus');
                 return;
             }
-            if (req.user.id != menu.userId) {
+            if (req.store.id != menu.storeId) {
                 flashMessage(res, 'error', 'Unauthorised access');
                 res.redirect('/admin/listMenus');
                 return;
@@ -345,7 +346,7 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
             res.redirect('/admin/listMenus');
             return;
         }
-        if (req.user.id != menu.userId) {
+        if (req.store.id != menu.storeId) {
             flashMessage(res, 'error', 'Unauthorised access');
             res.redirect('/admin/listMenus');
             return;
@@ -360,7 +361,7 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
     }
 });
 
-router.get('/deleteStore/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
+router.get('/deleteStore/:id', async function (req, res) {
     try {
         let store = await Store.findByPk(req.params.id);
         if (!store) {
