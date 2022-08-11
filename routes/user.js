@@ -229,10 +229,11 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let quantity = req.body.quantity;
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
+    let productid = req.body.id;
 
     Order.create(
         {
-            name, quantity, totalprice, userId
+            name, quantity, totalprice, userId, productid
         }
     )
         .then((order) => {
@@ -240,8 +241,8 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
             res.redirect('/user/receipt',);
             Cart.destroy(
                 {
-                    where: {},
-                    truncate: true
+                    where: {
+                        userId: userId},
                 }
             );
         })

@@ -15,6 +15,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
+const Cart = require('../models/Cart');
 
 function sendEmail(toEmail, url) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -283,6 +284,10 @@ router.post('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
     Menu.update(
         { name, description, price, posterURL },
         { where: { id: req.params.id } }
+    )
+    Cart.update(
+        { name, description, price, posterURL },
+        { where: { productid: req.params.id} }
     )
         .then((result) => {
             console.log(result[0] + ' menu updated');
