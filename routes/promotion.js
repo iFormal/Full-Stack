@@ -171,11 +171,11 @@ router.get('/deletePromotion/:id', ensureAuthenticated, async function
             res.redirect('/promotion/listPromotions');
             return;
         }
-        if (req.user.id != promotion.userId) {
-            flashMessage(res, 'error', 'Unauthorised access');
-            res.redirect('/promotion/listPromotions');
-            return;
-        }
+        // if (req.user.id != promotion.userId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/promotion/listPromotions');
+        //     return;
+        // }
         let result = await Promotion.destroy({ where: { id: promotion.id } });
         console.log(result + ' promotion deleted');
         res.redirect('/promotion/listPromotions');
