@@ -164,7 +164,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Menu.findAll({
-        where: { storeId: req.store.id },
+        where: { storeId: req.user.id },
         order: [['price']],
         raw: true
     })
