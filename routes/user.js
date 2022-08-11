@@ -29,7 +29,7 @@ router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.post('/listMenus2/:id')
+// router.post('/listMenus2/:id')
 
 // router.post('/listMenus2/:id', ensureAuthenticated, (req, res) => {
 //     let name = req.body.name;
