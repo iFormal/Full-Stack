@@ -11,7 +11,6 @@ const Order = require('../models/Order')
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const bcrypt = require('bcryptjs');
-
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
@@ -164,7 +163,6 @@ router.get('/logout', (req, res) => {
 
 router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Menu.findAll({
-        where: { storeId: req.user.id },
         order: [['price']],
         raw: true
     })
@@ -271,11 +269,11 @@ router.get('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =>
                 res.redirect('/admin/listMenus');
                 return;
             }
-            if (req.store.id != menu.storeId) {
-                flashMessage(res, 'error', 'Unauthorised access');
-                res.redirect('/admin/listMenus');
-                return;
-            }
+            // if (req.store.id != menu.storeId) {
+            //     flashMessage(res, 'error', 'Unauthorised access');
+            //     res.redirect('/admin/listMenus');
+            //     return;
+            // }
 
             res.render('admin/editMenu', { menu });
         })

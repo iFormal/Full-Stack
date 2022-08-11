@@ -10,21 +10,49 @@ const ensureAuthenticated = require('../helpers/authenticate');
 const fs = require('fs'); 1
 const upload = require('../helpers/imageUpload');
 
-router.get('/listMenus2', ensureAuthenticated, (req, res) => {
-    Menu.findAll({
-        order: [['price']],
-        raw: true
-    })
-        .then((menus) => {
-            res.render('user/listMenus2', { menus });
+// router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
+//     Menu.findAll({
+//         order: [['price']],
+//         raw: true
+//     })
+//         .then((menus) => {
+//             res.render('user/listMenus2/:id', { menus });
+//         })
+//         .catch(err => console.log(err));
+// });
+
+router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
+    Menu.findByPk(req.params.id)
+        .then((menu) => {
+            res.render('user/listMenus2', { menu });
         })
         .catch(err => console.log(err));
 });
 
+router.post('/listMenus2/:id')
+
+// router.post('/listMenus2/:id', ensureAuthenticated, (req, res) => {
+//     let name = req.body.name;
+//     let quantity = 1;
+//     let price = req.body.price;
+//     let userId = req.user.id;
+//     let productid = req.body.id;
+
+//     Cart.create(
+//         {
+//             name, quantity, price, userId, productid
+//         }
+//     )
+//         .then((cart) => {
+//             console.log(cart.toJSON());
+//             flashMessage(res, 'success', name + ' added to cart');
+//             res.redirect('/user/listMenus2');
+//         })
+//         .catch(err => console.log(err))
+// });
 
 router.get('/listStores2', ensureAuthenticated, (req, res) => {
     Store.findAll({
-        order:  [['name']],
         raw: true
     })
         .then((stores) => {
@@ -114,32 +142,6 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
             res.render('user/listProduct', { cart, totalprice });
         })
         .catch(err => console.log(err));
-});
-
-router.post('/listMenus2', ensureAuthenticated, (req, res) => {
-    let name = req.body.name;
-    let quantity = 1;
-    let price = req.body.price;
-    let userId = req.user.id;
-    let productid = req.body.id;
-
-    // let cartitem = Product.findOne({where : {productid : productid}})
-    // if (cartitem){
-    //     // If product is found, that means product has already been added
-    // }
-    // else{
-    Cart.create(
-        {
-            name, quantity, price, userId, productid
-        }
-    )
-        .then((cart) => {
-            console.log(cart.toJSON());
-            flashMessage(res, 'success', name + ' added to cart');
-            res.redirect('/user/listMenus2');
-        })
-        .catch(err => console.log(err))
-    // }
 });
 
 router.get('/minusQuantity/:id', ensureAuthenticated, async function (req, res) {
