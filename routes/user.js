@@ -38,25 +38,35 @@ router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
 
 // router.post('/listMenus2/:id')
 
-// router.post('/listMenus2/:id', ensureAuthenticated, (req, res) => {
-//     let name = req.body.name;
-//     let quantity = 1;
-//     let price = req.body.price;
-//     let userId = req.user.id;
-//     let productid = req.body.id;
+router.post('/listMenus2/:id', ensureAuthenticated, (req, res) => {
+    let name = req.body.name;
+    let quantity = 1;
+    let price = req.body.price;
+    let userId = req.user.id;
+    let productid = req.body.id;
 
-//     Cart.create(
-//         {
-//             name, quantity, price, userId, productid
-//         }
-//     )
-//         .then((cart) => {
-//             console.log(cart.toJSON());
-//             flashMessage(res, 'success', name + ' added to cart');
-//             res.redirect('/user/listMenus2');
-//         })
-//         .catch(err => console.log(err))
-// });
+    Cart.create(
+        {
+            name, quantity, price, userId, productid
+        }
+    )
+        .then((cart) => {
+            console.log(cart.toJSON());
+            flashMessage(res, 'success', name + ' added to cart');
+            Store.findByPk(req.params.id)
+            .then((store) => {
+                Menu.findAll({
+                    where: {storeId: req.params.id},
+                    raw: true
+                })
+                .then((menu) =>
+                {
+                    res.render('user/listMenus2', { store, menu });
+                })
+            })
+        })
+        .catch(err => console.log(err))
+});
 
 router.get('/listStores2', ensureAuthenticated, (req, res) => {
     Store.findAll({
