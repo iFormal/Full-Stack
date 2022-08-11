@@ -14,10 +14,17 @@
 						<textarea class="form-control" id="description" name="description" rows="7"
 							maxlength="2000"></textarea>
 					</div>
+					{{#if stores}}
 					<div class="form-group">
-						<label class="font-italic" for="storeid">Store Id</label>
-						<input class="form-control" id="storeid" name="storeid" />
+						<label class="font-italic" for="storeid">Stores:</label>
+						<br>
+						<select name="storeid" id="storeid">
+							{{#each stores}}
+							<option value="{{id}}">{{name}}</option>
+							{{/each}}
+						</select>
 					</div>
+					{{/if}}
 				</div>
 				<div class="custom-file mb-2">
 					<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"

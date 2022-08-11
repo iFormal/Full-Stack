@@ -29,7 +29,14 @@ router.get('/listPromotions', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addPromotion', ensureAuthenticated, (req, res) => {
-    res.render('promotion/addPromotion');
+    Store.findAll({
+        order: [['name']],
+        raw: true
+    })
+        .then((stores) => {
+            res.render('promotion/addPromotion', { stores });
+        })
+        .catch(err => console.log(err));
 });
 
 router.post('/addPromotion', (req, res) => {
@@ -133,12 +140,14 @@ router.get('/editPromotion/:id', ensureAuthenticated, (req, res) => {
                 res.redirect('/promotion/listPromotions');
                 return;
             }
-            // if (req.user.id != promotion.userId) {
-            //     flashMessage(res, 'error', 'Unauthorised access');
-            //     res.redirect('/promotion/listPromotions');
-            //     return;
-            // }
-            res.render('promotion/editPromotion', { promotion });
+            Store.findAll({
+                order: [['name']],
+                raw: true
+            })
+                .then((stores) => {
+                    res.render('promotion/editPromotion', { promotion, stores });
+                })
+                .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
 });
