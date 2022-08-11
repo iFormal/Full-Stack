@@ -32,16 +32,16 @@
 
                 {{#if @first}}
                 <div class="item active">
-                    <a href="/promotion/details/{{id}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
+                    <a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
                     <div class="carousel-caption">
-                        <h3>{{title}}</h3>
+                        <h3>{{name}}</h3>
                     </div>
                 </div>
                 {{else}}
                 <div class="item">
-                    <a href="/promotion/details/{{id}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
+                    <a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
                     <div class="carousel-caption">
-                        <h3>{{title}}</h3>
+                        <h3>{{name}}</h3>
                     </div>
                 </div>
                 {{/if}}

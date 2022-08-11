@@ -505,3 +505,10 @@ nav ul li a:hover{
   margin-bottom: 15px;
   margin-left: 20px;
 }
+
+/*promotion*/
+.promotion{
+  padding: 0 10px 30px 10px;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(350px, lfr));
+}

@@ -24,8 +24,7 @@
         <h4 style="text-decoration:underline;">Order History</h4>
         {{#if orders}}
         {{#each orders}}
-        {{name}}
-        {{quantity}}
+        {{quantity}} - {{name}}<br>
         {{/each}}
         {{else}}
         No orders?

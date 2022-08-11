@@ -4,6 +4,7 @@ const flashMessage = require('../helpers/messenger');
 const passport = require('passport');
 const User = require('../models/User');
 const Store = require('../models/Store');
+const Promotion = require('../models/Promotion');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
@@ -70,13 +71,20 @@ router.get('/verify/:userId/:token', async function (req, res) {
 
 router.get('/', (req, res) => {
 	const title = 'Video Jotter';
-	// renders views/index.handlebars, passing title as an object
-	res.render('index', { title: title })
+	Promotion.findAll({
+		order: [['dateRelease', 'DESC']],
+		raw: true
+	})
+		.then((promotions) => {
+			res.render('index', { title: title, promotions})
+		})
+		.catch(err => console.log(err));
+	// renders views/index.handlebars, passing title as an objectF
 });
 
 router.get('/about', (req, res) => {
 	const author = 'Your Name';
-	res.render('about', { author });
+	res.render('about', {author});
 });
 
 router.get('/login', (req, res) => {

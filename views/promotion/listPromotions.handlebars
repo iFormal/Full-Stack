@@ -1,29 +1,20 @@
-<style>
-	.addbtn {
-		color: white;
-		border-radius: 10px;
-		display: inline-block;
-		width: 100px;
-		padding: 10px;
-		text-decoration: none;
-		align-items: right;
-		float: right;
-		background-color: blue;
-	}
-</style>
-<div class="container">
-	{{#if promotions}}
+<div class="promotion">
+	<div class="heading">
+		<h1>Promotion Management</h1>
+		<h3>Promotion</h3>
+	</div>
+		{{#if promotions}}
 	<div class="card card-body">
 		<h3 class="text-primary">Promotions</h3>
 		{{#each promotions}}
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
-				<h5 class="card-title">{{title}}</h5>
+				<h5 class="card-title">{{name}}</h5>
 			</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-2">
-						<a href="{{posterURL}}" data-title="{{title}}" data-toggle="lightbox">
+						<a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
 							<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-
 fluid mb-2" onerror="this.src='/img/no-image.jpg'" style="max-
 height:160px">
@@ -38,8 +29,8 @@ height:160px">
 								</p>
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-3">
-								<p class="font-italic">Store Owner</p>
-								<p class="text-info">{{storeowner}}</p>
+								<p class="font-italic">Store Id</p>
+								<p class="text-info">{{storeid}}</p>
 							</div>
 						</div>
 					</div>
@@ -78,13 +69,10 @@ height:160px">
 		</div>
 		{{/each}}
 	</div>
-
-</div>
-{{else}}
-<h3>No Promotion</h3>
-{{/if}}
-<div>
-	<a href="/promotion/addPromotion"><button class="addbtn">Add</button></a>
+	{{else}}
+	<h3>No Promotion</h3>
+	{{/if}}
+	<a href="/promotion/addPromotion" class="heading">Add Promotion</a>
 </div>
 
 <script>

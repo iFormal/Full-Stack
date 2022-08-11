@@ -164,6 +164,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Menu.findAll({
+        where: { storeId: req.user.id },
         order: [['price']],
         raw: true
     })
@@ -216,7 +217,13 @@ router.get('/deleteOrder/:id', ensureAuthenticated, async function (req, res) {
 });
 
 router.get('/addMenu', ensureAuthenticated, ensureAuthorized, (req, res) => {
-    res.render('admin/addMenu');
+    Store.findAll({
+        raw: true
+    }).then((stores) =>
+    {
+        res.render('admin/addMenu', {stores});
+    })
+    .catch(err => console.log(err));
 });
 
 router.post('/addMenu', ensureAuthenticated, (req, res) => {
@@ -224,10 +231,10 @@ router.post('/addMenu', ensureAuthenticated, (req, res) => {
     let description = req.body.description.slice(0, 1999);
     let price = req.body.price;
     let posterURL = req.body.posterURL;
-    let userId = req.user.id;
+    let storeId = req.body.storeId;
 
     Menu.create(
-        { name, description, price, posterURL, userId }
+        { name, description, price, posterURL, storeId }
     )
         .then((menu) => {
             console.log(menu.toJSON());
@@ -264,7 +271,7 @@ router.get('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =>
                 res.redirect('/admin/listMenus');
                 return;
             }
-            if (req.user.id != menu.userId) {
+            if (req.store.id != menu.storeId) {
                 flashMessage(res, 'error', 'Unauthorised access');
                 res.redirect('/admin/listMenus');
                 return;
@@ -345,11 +352,11 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
             res.redirect('/admin/listMenus');
             return;
         }
-        if (req.user.id != menu.userId) {
-            flashMessage(res, 'error', 'Unauthorised access');
-            res.redirect('/admin/listMenus');
-            return;
-        }
+        // if (req.store.id != menu.storeId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/admin/listMenus');
+        //     return;
+        // }
 
         let result = await Menu.destroy({ where: { id: menu.id } });
         console.log(result + ' menu deleted');
@@ -360,7 +367,7 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
     }
 });
 
-router.get('/deleteStore/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
+router.get('/deleteStore/:id', async function (req, res) {
     try {
         let store = await Store.findByPk(req.params.id);
         if (!store) {
@@ -368,11 +375,11 @@ router.get('/deleteStore/:id', ensureAuthenticated, ensureAuthorized, async func
             res.redirect('/admin/listStores');
             return;
         }
-        if (req.user.id != store.userId) {
-            flashMessage(res, 'error', 'Unauthorised access');
-            res.redirect('/admin/listStores');
-            return;
-        }
+        // if (req.user.id != store.userId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/admin/listStores');
+        //     return;
+        // }
 
         let result = await Store.destroy({ where: { id: store.id } });
         console.log(result + ' store deleted');
@@ -465,7 +472,7 @@ router.get('/registerStore', ensureAuthenticated, ensureAuthorized, (req, res) =
 });
 
 router.post('/registerStore', async function (req, res) {
-	let { name, category, posterURL } = req.body;
+	let { name, category, posterURL, userId} = req.body;
 
 	let isValid = true;
 	if (category == null) {
@@ -490,7 +497,7 @@ router.post('/registerStore', async function (req, res) {
 			});
 		}
 		else {
-		    let store = await Store.create({ name, category, posterURL});
+		    let store = await Store.create({ name, category, posterURL, userId});
             flashMessage(res, 'success', store.name + ' registered successfully');
                     res.redirect('/admin/listStores');
 		}
