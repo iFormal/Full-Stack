@@ -133,11 +133,11 @@ router.get('/editPromotion/:id', ensureAuthenticated, (req, res) => {
                 res.redirect('/promotion/listPromotions');
                 return;
             }
-            if (req.user.id != promotion.userId) {
-                flashMessage(res, 'error', 'Unauthorised access');
-                res.redirect('/promotion/listPromotions');
-                return;
-            }
+            // if (req.user.id != promotion.userId) {
+            //     flashMessage(res, 'error', 'Unauthorised access');
+            //     res.redirect('/promotion/listPromotions');
+            //     return;
+            // }
             res.render('promotion/editPromotion', { promotion });
         })
         .catch(err => console.log(err));
