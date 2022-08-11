@@ -6,8 +6,8 @@
 				<div class="col-lg-9">
 					<div class="form-group">
 						{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
-						<label class="font-italic" for="title">Title</label>
-						<textarea class="form-control" id="title" name="title" onblur="initialiseTitle()" rows="1"
+						<label class="font-italic" for="name">Name</label>
+						<textarea class="form-control" id="name" name="name" onblur="initialiseTitle()" rows="1"
 							maxlength="255">{{promotion.title}}</textarea>
 					</div>
 					<div class="form-group mb-4">
@@ -16,8 +16,8 @@
 							maxlength="2000">{{promotion.description}}</textarea>
 					</div>
 					<div class="form-group">
-						<label class="font-italic" for="description">Store Owner</label>
-						<input class="form-control" id="storeowner" name="storeowner" value="{{promotion.storeowner}}" />
+						<label class="font-italic" for="storeid">Store Id</label>
+						<input class="form-control" id="storeid" name="storeid" value="{{promotion.storeid}}" />
 					</div>
 				</div>
 				<div class="custom-file mb-2">
