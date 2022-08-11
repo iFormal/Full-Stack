@@ -466,7 +466,7 @@ router.get('/registerStore', ensureAuthenticated, ensureAuthorized, (req, res) =
 });
 
 router.post('/registerStore', async function (req, res) {
-	let { name, category, posterURL } = req.body;
+	let { name, category, posterURL, userId} = req.body;
 
 	let isValid = true;
 	if (category == null) {
@@ -491,7 +491,7 @@ router.post('/registerStore', async function (req, res) {
 			});
 		}
 		else {
-		    let store = await Store.create({ name, category, posterURL});
+		    let store = await Store.create({ name, category, posterURL, userId});
             flashMessage(res, 'success', store.name + ' registered successfully');
                     res.redirect('/admin/listStores');
 		}
