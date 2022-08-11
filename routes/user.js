@@ -35,7 +35,10 @@ router.get('/listStores2', ensureAuthenticated, (req, res) => {
 router.get('/profile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
         .then((users) => {
-            Order.findByPk(req.params.id)
+            Order.findAll({
+                where: { userId: req.params.id },
+                raw: true
+            })
             .then((orders) => {
                 if (users.id != req.user.id)
                 {
