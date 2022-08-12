@@ -14,8 +14,7 @@
 
 .sidebar{
   position: fixed;
-  top: 0;
-  left: 0;
+
   height: 100%;
   width: 240px;
   background: #11101d;
@@ -154,13 +153,13 @@
   background-color: #1d1b31;
 }
 
-.nav-link {
+.menu-bar .nav-link {
   font-size: 16px;
   margin: 4px;
   color: #fff!important;
 }
 
-.navbar-nav {
+.menu-bar .navbar-nav {
   text-align: right;
   margin-right: 20px;
 }
@@ -171,20 +170,26 @@
   border: none!important;
 }
 
-.navbar .bx {
+.menu-bar .navbar .bx {
   color: #fff!important;
   font-size: 26px;
 }
 
-.nav-link:hover {
+.menu-bar .nav-link:hover {
   font-weight: 600;
   border-bottom: 1px solid #fff;
 }
 
-.navbar-brand img {
+.menu-bar .navbar-brand img {
   width: 200px;
   margin-top: 5px;
   margin-left: 20px;
+}
+
+.menu-bar .dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #1d1b31;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -192,6 +197,11 @@
     border-bottom: none!important;
   }
 }
+
+/* End of Menu Bar */
+
+/* Start of Sidebar */
+
 
 /* nav{
   background: #11101d;
