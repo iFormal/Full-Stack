@@ -4,7 +4,7 @@
     <title>Promotions</title>
     <section>
         <div class="container-fluid my-5">
-            <h1 class="text-center fw-bold display-1 mb-3">Promotions <span class="text-danger">Carousel</span></h1>
+            <h1 class="text-center fw-bold display-1 mb-3">Promotions</h1>
             <div class="row mt-5">
                 <div class="owl-carousel owl-theme">
                     {{#each promotions}}
@@ -12,7 +12,8 @@
                         <div class="card border-0 shadow">
                             <img src="{{posterURL}}" alt="poster" class="card-img-top">
                             <div class="card-body">
-                                <h4>Promo</h4>
+                                <h4 class="text-center">{{name}}</h4>
+                                <h5 class="text-center">{{description}}</h5>
                             </div>
                         </div>
                     </div>

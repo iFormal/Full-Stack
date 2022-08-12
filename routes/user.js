@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Menu = require('../models/Menu');
+const Promotion = require('../models/Promotion');
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const Store = require('../models/Store')
@@ -140,8 +141,15 @@ router.post('/profile/editProfile/:id', async function (req, res) {
 
 router.get('/home', (req, res) => {
     const title = 'Placeholder Carousel';
+    Promotion.findAll({
+		order: [['dateRelease', 'DESC']],
+		raw: true
+	})
+		.then((promotions) => {
+			res.render('user/home', { title: title, promotions})
+		})
+		.catch(err => console.log(err));
     // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
-    res.render('user/home', { title: title })
 });
 
 router.get('/listProduct', ensureAuthenticated, (req, res) => {
