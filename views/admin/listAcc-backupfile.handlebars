@@ -1,0 +1,55 @@
+<div class="container ml-auto mt-3">
+    {{#if users}}
+    <div class="card card-body bg-dark">
+        <h3 class="text-white text-center">User Accounts</h3>
+        <div class="d-grid gap-2">
+            <a type="button" href = "/admin/registerAdmin" class="btn btn-primary btn-lg btn-block">Add Admin Account</a>
+        </div>
+        {{#each users}}
+        <div class="card border-primary mb-2 w-100 mx-auto">
+            <div class="card-header">
+                <p></p>
+                <h5 class="card-title">User: {{ name }}</h5>
+                {{#if status}}
+                <p>(Admin Account)</p>
+                {{/if}}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-3">
+                        <p class="font-italic">{{ name }}'s Email:</p>
+                        <p class="text-info">
+                            {{ email }}
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <p>
+                            <a href="/admin/editAcc/{{id}}" class="card-link mb-2">
+                                <i class="fas fa-pencil-alt"></i>
+                                Edit
+                            </a>
+                        </p>
+                        <p>
+                            <a href="/admin/deleteAcc/{{id}}" class="card-link" data-toggle="confirmation"
+                                data-title="Confirm delete?">
+                                <i class="far fa-trash-alt"></i>
+                                Delete
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        {{/each}}
+    </div>
+    {{else}}
+    <h3>No users? :(</h3>
+    {{/if}}
+</div>
+
+<script>
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+    });
+</script>
