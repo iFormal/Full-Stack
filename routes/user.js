@@ -246,7 +246,7 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
 router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
     let quantity = req.body.quantity;
-    const cart = (name.map((value, index) => ([value, quantity[index]]))).toString();
+    const cart = (name.map((value, index) => ([value, quantity[index]])));
     let totalprice = req.body.totalprice;
     let userId = req.user.id;
 
