@@ -3,21 +3,24 @@
 	<div class="col-md-6 mx-auto">
 		<div class="card card-body">
 			<img class="logo" src="/img/logo-white.png">
-			<h3 class="text-center">Reset your password</h3>
+			<h3 class="text-center">Set a new password</h3>
 			<hr>
-			<p class="text-center">Enter your email and we'll send a link to reset your password.</p>
+			<p class="text-center">Enter a new password to set, and re-enter the same password below.</p>
 			<form method="post" action="">
+				<input type="email" class="form-control" id="exampleFormControlInput2" name="email" readonly
+					value={{user.email}} style="visibility: hidden;">
 				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" name="email" class="form-control" required>
+					<label for="password">New Password</label>
+					<input type="password" name="password" class="form-control" value="" required>
 				</div>
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Send Email</button>
+				<div class="form-group">
+					<label for="password2">Confirm New Password</label>
+					<input type="password" name="password2" class="form-control" value="" required>
+				</div>
+				<p></p>
+				<p></p>
+				<button type="submit" class="btn btn-primary btn-lg btn-block">Reset Password</button>
 			</form>
-			<p></p>
-			<div style="display:flex; justify-content: space-between;">
-				<a href="/login" class="link-primary">Login Now!</a>
-				<a href="/register" class="link-primary">Haven't registered? Register now!</a>
-			</div>
 		</div>
 	</div>
 </div>
