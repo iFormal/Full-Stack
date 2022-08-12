@@ -1,17 +1,16 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 
 /* Sidebar Menu CSS*/
 
-body{
+/* body{
   position: relative;
   min-height: 100vh;
   width: 100%;
-}
+} */
 
 .sidebar{
   position: fixed;
@@ -150,21 +149,65 @@ body{
 }
 
 /* User Top Navbar */
-nav{
+
+.menu-bar {
+  background-color: #1d1b31;
+}
+
+.nav-link {
+  font-size: 16px;
+  margin: 4px;
+  color: #fff!important;
+}
+
+.navbar-nav {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.menu-bar .navbar-toggler {
+  padding-right: 20px;
+  outline: none!important;
+  border: none!important;
+}
+
+.navbar .bx {
+  color: #fff!important;
+  font-size: 26px;
+}
+
+.nav-link:hover {
+  font-weight: 600;
+  border-bottom: 1px solid #fff;
+}
+
+.navbar-brand img {
+  width: 200px;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .nav-link:hover {
+    border-bottom: none!important;
+  }
+}
+
+/* nav{
   background: #11101d;
   height: 80px;
   width: 100%;
-}
+} */
 
-label.logo2{
+/* label.logo2{
   color: white;
   font-size: 35px;
   line-height: 80px;
   padding: 0 100px;
   font-weight: bold;
-}
+} */
 
-nav ul{
+/* nav ul{
   float: right;
   margin-right: 20px;
 }
@@ -188,14 +231,14 @@ nav ul li a.active{
   transition: .5s;
   text-decoration: none;
   color: white;
-}
+} */
 
-nav ul li a:hover{
+/* nav ul li a:hover{
   background: #2f2c33;
   transition: .5s;
   text-decoration: none;
   color: white;
-}
+} */
 
 /* Dishes Section */
 /* .sub-heading{
