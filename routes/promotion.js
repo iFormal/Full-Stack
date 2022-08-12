@@ -58,7 +58,7 @@ router.post('/addPromotion', (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.get('/userInterface', (req, res) => {
+router.get('/userInterface', ensureAuthenticated, (req, res) => {
     Store.findAll({
         raw: true
     })
