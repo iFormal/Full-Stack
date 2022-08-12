@@ -95,6 +95,11 @@ router.get('/register', (req, res) => {
 	res.render('register');
 });
 
+router.get('/forgotPw', (req, res) =>
+{
+	res.render('forgotPw');
+});
+
 router.post('/register', async function (req, res) {
 	let { name, email, password, password2, status, posterURL } = req.body;
 
