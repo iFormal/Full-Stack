@@ -59,15 +59,21 @@ router.post('/addPromotion', (req, res) => {
 });
 
 router.get('/userInterface', (req, res) => {
-    Promotion.findAll({
-        order: [['dateRelease', 'DESC']],
+    Store.findAll({
         raw: true
     })
-        .then((promotions) => {
-            res.render('promotion/userInterface', { promotions });
+        .then((stores) => {
+            Promotion.findAll({
+                // where: { storeid: stores.id },
+                raw: true
+            })
+                .then((promotions) => {
+                    res.render('promotion/userInterface', { promotions, stores });
+                })
         })
-        .catch(err => console.log(err));
+    .catch(err => console.log(err))
 });
+    
 // router.get('/userInterface', (req, res) => {
 //     Promotion.findAll({
 //         order: [['dateRelease', 'DESC']],

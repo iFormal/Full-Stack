@@ -3,67 +3,67 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<style>
-		.carousel-inner>.item>img,
-		.carousel-inner>.item>a>img {
-			width: 1280px;
-			height: 500px;
-			margin: auto;
-		}
+    <style>
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
+            width: 1280px;
+            height: 720px;
+            margin: auto;
+        }
 
-		.container {
-			position:absolute;
-			width: 100%;
-			left: 65px;
-		}
-	</style>
+        .container {
+            width: 100%;
+        }
+    </style>
 
-	<div class="container">
-		<br>
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				{{#each promotions}}
-				<li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
-				{{/each}}
-			</ol>
+    <div class="container">
+        <br>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {{#each promotions}}
+                <li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
+                {{/each}}
+            </ol>
 
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" role="listbox">
-				{{#each promotions}}
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                {{#each promotions}}
 
-				{{#if @first}}
-				<div class="item active">
-					<a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster"
-							class="img-thumbnail img-fluid mb-2"></a>
-					<div class="carousel-caption">
-						<h3>{{name}}</h3>
-					</div>
-				</div>
-				{{else}}
-				<div class="item">
-					<a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster"
-							class="img-thumbnail img-fluid mb-2"></a>
-					<div class="carousel-caption">
-						<h3>{{name}}</h3>
-					</div>
-				</div>
-				{{/if}}
+                {{#if @first}}
+                <div class="item active">
+                    <a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
+                    <div class="carousel-caption">
+                        <h3>{{name}}</h3>
+                        <h4>{{description}}</h4>
+                    </div>
+                </div>
+                {{else}}
+                <div class="item">
+                    <a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"></a>
+                    <div class="carousel-caption">
+                        <h3>{{name}}</h3>
+                        <h4>{{description}}</h4>
+                    </div>
+                </div>
+                {{/if}}
 
-				{{/each}}
-			</div>
+                {{/each}}
+            </div>
 
-			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+</div>
 
 </div>
 {{else}}
