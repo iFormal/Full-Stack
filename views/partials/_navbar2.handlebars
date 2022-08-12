@@ -12,37 +12,37 @@
         <li>
             <a href="/admin/listStores">
                 <i class='bx bx-store'></i>
-                <span class="links_name">Store Management</span>
+                <span class="links_name">Store</span>
             </a>
         </li>
         <li>
             <a href="/admin/listMenus">
                 <i class='bx bx-food-menu'></i>
-                <span class="links_name">Food Management</span>
+                <span class="links_name">Food</span>
             </a>
         </li>
         <li>
             <a href="/admin/listOrders">
                 <i class='bx bx-cart'></i>
-                <span class="links_name">Customer Order</span>
+                <span class="links_name">Order </span>
             </a>
         </li>
         <li>
             <a href="/admin/listAcc">
                 <i class='bx bx-user'></i>
-                <span class="links_name">Manage Account</span>
+                <span class="links_name">Account</span>
             </a>
         </li>
         <li>
             <a href="/promotion/listPromotions">
                 <i class='bx bx-bowl-rice'></i>
-                <span class="links_name">Manage Promotion</span>
+                <span class="links_name">Promotion</span>
             </a>
         </li>
         <li>
             <a href="/promotion/promotionalEmail">
                 <i class='bx bx-envelope'></i>
-                <span class="links_name">Promotional Email</span>
+                <span class="links_name">Email</span>
             </a>
         </li>
         <li>
@@ -58,22 +58,69 @@
 
     {{!-- Sidebar starts here --}}
 
-    <div class="bg-white">
+    {{!-- <div class="bg-white">
 
-        {{!-- <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase">
+        <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase">
             <i class='bx bxl-c-plus-plus'></i> SouthCanteen - Admin
         </div>
 
         <div class="list-group list-group-flush my-3">
-            <a href="#" class="list-group-item list-group-item-action-bg-transparent second-text active">
-
+            <a href="/admin/listStores" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-store me-2'></i> Store Management
             </a>
-        </div> --}}
+            <a href="/admin/listMenus" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-food-menu me-2'></i> Food Management
+            </a>
+            <a href="/admin/listOrders" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-cart me-2'></i> Order Management
+            </a>
+            <a href="/admin/listAcc" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-user me-2'></i> Account Management
+            </a>
+            <a href="/promotion/listPromotions" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-bowl-rice me-2'></i> Promotion Management
+            </a>
+            <a href="/promotion/promotionalEmail" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+                <i class='bx bx-envelope me-2'></i> Promotional Email
+            </a>
+            <a href="/user/logout" class="list-group-item list-group-item-action-bg-transparent text-danger fw-bold">
+                <i class='bx bx-log-out me-2'></i> Logout
+            </a>
+        </div>
 
-    </div>
+    </div> --}}
 
     {{!-- Sidebar ends here --}}
 
+    {{!-- <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+            <div class="d-flex align-items-center">
+                <i class='bx bx-menu primary-text fs-4 me-3' id="menu-toggle"></i>
+                <h2 class="fs-2 m-0">Dashboard</h2>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link drowndown-toggle second-text fw-bold" id="navbarDropdown" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bxs-user me-2'></i>{{user.name}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href="#" class="dropdown-item">Profile</a></li>
+                            <li><a href="#" class="dropdown-item">Settings</a></li>
+                            <li><a href="#" class="dropdown-item">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div> --}}
 </div>
 
 {{else}}
