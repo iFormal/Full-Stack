@@ -5,7 +5,7 @@ const formatDate = function (date, targetFormat) {
 };
 
 const replaceCommas = function(value) {
-    return value ? value.replace('[[','[').replace(']]',']').replace('""', ' ') : 'None';
+    return value ? value.replace('[[','[').replace(']]',']').replace(/[""]/g, '').replace(/,/g, ', ') : 'None';
 };
 
 const checkboxCheck = function (value, checkboxValue) {
