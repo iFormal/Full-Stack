@@ -54,6 +54,45 @@
     </ul>
 </div>
 
+<div class="header">
+    <div class="menu-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            {{!-- <a class="navbar-brand" href="/"><img src="/img/logo.png" alt=""></a> --}}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class='bx bx-menu'></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    {{!-- <li class="nav-item">
+                        <a class="nav-link" href="/user/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/listStores2">Stores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/promotion/userInterface">Promotions</a>
+                    </li> --}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{user.name}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="/user/profile/{{user.id}}" class="dropdown-item">Profile</a>
+                            {{!-- <a href="/user/receipt" class="dropdown-item">Order History</a> --}}
+                            <a href="/user/logout" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                    {{!-- <li class="nav-item">
+                        <a class="nav-link" href="/user/listProduct"><img src="/img/userCart.png"></a>
+                    </li> --}}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
 <div class="d-flex" id="wrapper">
 
     {{!-- Sidebar starts here --}}
@@ -65,22 +104,27 @@
         </div>
 
         <div class="list-group list-group-flush my-3">
-            <a href="/admin/listStores" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+            <a href="/admin/listStores"
+                class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-store me-2'></i> Store Management
             </a>
-            <a href="/admin/listMenus" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+            <a href="/admin/listMenus"
+                class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-food-menu me-2'></i> Food Management
             </a>
-            <a href="/admin/listOrders" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+            <a href="/admin/listOrders"
+                class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-cart me-2'></i> Order Management
             </a>
             <a href="/admin/listAcc" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-user me-2'></i> Account Management
             </a>
-            <a href="/promotion/listPromotions" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+            <a href="/promotion/listPromotions"
+                class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-bowl-rice me-2'></i> Promotion Management
             </a>
-            <a href="/promotion/promotionalEmail" class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
+            <a href="/promotion/promotionalEmail"
+                class="list-group-item list-group-item-action-bg-transparent second-text fw-bold">
                 <i class='bx bx-envelope me-2'></i> Promotional Email
             </a>
             <a href="/user/logout" class="list-group-item list-group-item-action-bg-transparent text-danger fw-bold">
@@ -99,16 +143,17 @@
                 <h2 class="fs-2 m-0">Dashboard</h2>
             </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link drowndown-toggle second-text fw-bold" id="navbarDropdown" role="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="nav-link drowndown-toggle second-text fw-bold" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bxs-user me-2'></i>{{user.name}}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -135,7 +180,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/user/home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/listStores2">Stores</a>
