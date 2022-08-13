@@ -112,13 +112,12 @@ router.get('/emailverify/:token', async function (req, res) {
 });
 
 router.get('/', (req, res) => {
-	const title = 'Video Jotter';
 	Promotion.findAll({
 		order: [['dateRelease', 'DESC']],
 		raw: true
 	})
 		.then((promotions) => {
-			res.render('index', { title: title, promotions })
+			res.render('index', { promotions })
 		})
 		.catch(err => console.log(err));
 	// renders views/index.handlebars, passing title as an objectF
@@ -275,7 +274,7 @@ router.post('/login', passport.authenticate('local', {
 	failureFlash: true
 }), (req, res) => {
 	if (!req.user.status) {
-		res.redirect('/user/home');
+		res.redirect('/');
 	}
 	else {
 		res.redirect('/admin/listAcc');
