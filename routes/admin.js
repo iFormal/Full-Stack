@@ -328,6 +328,17 @@ router.post('/editStore/:id', ensureAuthenticated, ensureAuthorized, async funct
                     res.redirect('/admin/listStores');
                 })
         }
+        else {
+            Store.update(
+                { name, category, posterURL },
+                { where: { id: req.params.id } }
+            )
+                .then((result) => {
+                    console.log(result[0] + ' store updated!');
+                    flashMessage(res, 'success', name + ' has been updated!');
+                    res.redirect('/admin/listStores');
+                })
+        }
     }
     catch (err) {
         console.log(err);
