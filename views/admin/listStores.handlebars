@@ -7,12 +7,15 @@
 	<div class="row">
 		{{#each stores}}
 		<div class="col">
-			<div class="card" style="width: 18rem; ">
-				<img src="{{posterURL}}" class="card-img-top" alt="{{name}}">
+			<div class="card" style="width: 18rem; margin: auto; ">
+				<img src="{{posterURL}}" class="card-img-top" alt="{{name}}" style="width: 100%; height: 10vw; object-fit: cover;">
 				<div class="card-body">
 					<h5 class="card-title">{{name}}</h5>
 					<p class="card-text">{{description}}</p>
-					<a href="#" class="btn btn-primary">Edit</a>
+					<a href="/admin/editStore/{{id}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
+					<a href="/admin/deleteStore/{{id}}" class="btn btn-danger" data-toggle="confirmation" data-title="Confirm delete?"><i class="far fa-trash-alt"></i>
+						Delete
+					</a>
 				</div>
 			</div>
 		</div>
