@@ -1,68 +1,80 @@
 <p></p>
-<p class="h1 text-center">Product Management</p>
+<p class="h1 text-center">Product Management <a type="button" href="/admin/addMenu" class="btn btn-primary">Add
+		Product</a></p>
 <hr />
 
 {{#if menus}}
-{{#each menus}}
 
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{name}}</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-{{!-- <div class="card border-primary w-75 ml-auto mb-3">
-	<div class="card-header">
-		<h5 class="card-title">{{name}}</h5>
-	</div>
-	<div class="card-body">
-		<div class="row">
-			<div class="col-lg-2">
-				<a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
-					<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
-						onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
-				</a>
-			</div>
-			<div class="col-lg-8">
-				<div class="row">
-					<div class="col-sm-12 col-md-12 col-lg-3">
-						<p class="font-italic">Description</p>
-						<p class="text-info">{{description}}</p>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-3">
-						<p class="font-italic">Price</p>
-						<p class="text-info">${{price}}</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-2">
-				<p>
-					<a href="/admin/editMenu/{{id}}" class="card-link mb-2">
-						<i class="fas fa-pencil-alt"></i>
-						Edit
-					</a>
-				</p>
-				<p>
-					<a href="/admin/deleteMenu/{{id}}" class="card-link" data-toggle="confirmation"
-						data-title="Confirm delete?">
-						<i class="far fa-trash-alt"></i>
+<div class="container">
+	<div class="row">
+		{{#each menus}}
+		<div class="col">
+			<div class="card" style="width: 18rem; margin: auto; ">
+				<img src="{{posterURL}}" class="card-img-top" alt="{{name}}"
+					style="width: 100%; height: 10vw; object-fit: cover;">
+				<div class="card-body">
+					<h5 class="card-title">{{name}}</h5>
+					<p class="card-text">{{description}}</p>
+					<a href="/admin/editMenu/{{id}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
+					<a href="/admin/deleteMenu/{{id}}" class="btn btn-danger" data-toggle="confirmation"
+						data-title="Confirm delete?"><i class="far fa-trash-alt"></i>
 						Delete
 					</a>
-				</p>
+				</div>
 			</div>
 		</div>
+		{{/each}}
 	</div>
-</div> --}}
-{{/each}}
-{{else}}
-<h3>No Menu Available</h3>
-{{/if}}
-<a href="/admin/addMenu" class="heading">Add Menu</a>
+	{{else}}
+	<h3>No Menu Available</h3>
+	{{/if}}
+</div>
 
 <script>
 	$('[data-toggle=confirmation]').confirmation({
 		rootSelector: '[data-toggle=confirmation]',
 	});
 </script>
+
+	{{!-- <div class="card border-primary w-75 ml-auto mb-3">
+		<div class="card-header">
+			<h5 class="card-title">{{name}}</h5>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-2">
+					<a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
+						<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
+							onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
+					</a>
+				</div>
+				<div class="col-lg-8">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-3">
+							<p class="font-italic">Description</p>
+							<p class="text-info">{{description}}</p>
+						</div>
+						<div class="col-sm-12 col-md-12 col-lg-3">
+							<p class="font-italic">Price</p>
+							<p class="text-info">${{price}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<p>
+						<a href="/admin/editMenu/{{id}}" class="card-link mb-2">
+							<i class="fas fa-pencil-alt"></i>
+							Edit
+						</a>
+					</p>
+					<p>
+						<a href="/admin/deleteMenu/{{id}}" class="card-link" data-toggle="confirmation"
+							data-title="Confirm delete?">
+							<i class="far fa-trash-alt"></i>
+							Delete
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div> --}}

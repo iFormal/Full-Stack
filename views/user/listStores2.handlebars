@@ -1,25 +1,47 @@
-<div class="heading">
-	<h2>Store Selection</h2>
-</div>
+<br>
+<p class="h1 text-center">Popular Stores</p>
+<hr />
+{{#if stores}}
 <div class="container">
-	{{#if stores}}
-	{{#each stores}}
-		<a href="/user/listMenus2/{{id}}" data-title="{{name}}" data-toggle="lightbox">
-			<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
-				onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
-		</a>
-	</div>
-	<div class="col-lg-8">
-		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-3">
-				<p class="font-weight-bold">{{name}}</p>
+	<div class="row">
+		{{#each stores}}
+		<div class="col">
+			<div class="card" style="width: 18rem; margin: auto; ">
+				<a href="/user/listMenus2/{{id}}" data-title="{{name}}" data-toggle="lightbox">
+					<img src="{{posterURL}}" alt="Poster" class="card-img-top"
+						onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
+				</a>
+				<div class="card-body">
+					<h5 class="card-title">{{name}}</h5>
+					<p class="card-text">{{category}}</p>
+				</div>
 			</div>
 		</div>
+		{{/each}}
+	</div>
+	{{else}}
+	<h3>No Store Available</h3>
+	{{/if}}
+</div>
+{{!-- <div class="container">
+	{{#if stores}}
+	{{#each stores}}
+	<a href="/user/listMenus2/{{id}}" data-title="{{name}}" data-toggle="lightbox">
+		<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
+			onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
+	</a>
+</div>
+<div class="col-lg-8">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-3">
+			<p class="font-weight-bold">{{name}}</p>
+		</div>
+	</div>
 	{{/each}}
 	{{else}}
 	<h3>No Stores Available</h3>
 	{{/if}}
-</div>
+</div> --}}
 
 <script>
 	$('[data-toggle=confirmation]').confirmation({
