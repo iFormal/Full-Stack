@@ -140,15 +140,7 @@ router.post('/profile/editProfile/:id', async function (req, res) {
 });
 
 router.get('/home', (req, res) => {
-    const title = 'Placeholder Carousel';
-    Promotion.findAll({
-		order: [['dateRelease', 'DESC']],
-		raw: true
-	})
-		.then((promotions) => {
-			res.render('user/home', { title: title, promotions})
-		})
-		.catch(err => console.log(err));
+    res.render('user/home', {title: title})
     // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
 });
 
