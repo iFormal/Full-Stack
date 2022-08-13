@@ -1,9 +1,48 @@
 <p></p>
-<p class="h1 text-center">Product Management <a type="button" href="/admin/addMenu" class="btn btn-primary">Add
-		Product</a></p>
+<p class="h1 text-center">Product Management</p>
 <hr />
 
 {{#if menus}}
+<div class="card card-body bg-light" style="margin:auto">
+    <p class="h3">All Menu Products <a type="button" href="/admin/addMenu" class="btn btn-primary">Add Product</a></p>
+    <hr />
+    <p></p>
+    <table class="table">
+        <thead class="thead-dark">
+			<th scope="col">ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Store Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </thead>
+        <tbody id = "myTable">
+            {{#each menus}}
+            <tr>
+				<th scope="row">{{id}}</th>
+                <th scope="row">{{name}}</th>
+                <th scope="row">{{storeId}}</th>
+                <th scope="row">${{price}}</th>
+                <th scope="row"><a href="/admin/editMenu/{{id}}" class="btn btn-info"><i class="fas fa-pencil-alt"></a></th>
+                <th scope="row"><a href="/admin/deleteMenu/{{id}}" class="btn btn-danger" data-toggle="confirmation"
+                        data-title="Confirm delete?">
+                        <i class="far fa-trash-alt"></i></a>
+                </th>
+
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/if}}
+
+<script>
+	$('[data-toggle=confirmation]').confirmation({
+		rootSelector: '[data-toggle=confirmation]',
+	});
+</script>
+
+{{!-- {{#if menus}}
 
 <div class="container">
 	<div class="row">
@@ -28,53 +67,4 @@
 	{{else}}
 	<h3>No Menu Available</h3>
 	{{/if}}
-</div>
-
-<script>
-	$('[data-toggle=confirmation]').confirmation({
-		rootSelector: '[data-toggle=confirmation]',
-	});
-</script>
-
-	{{!-- <div class="card border-primary w-75 ml-auto mb-3">
-		<div class="card-header">
-			<h5 class="card-title">{{name}}</h5>
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-lg-2">
-					<a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
-						<img src="{{posterURL}}" alt="Poster" class="img-thumbnail img-fluid mb-2"
-							onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
-					</a>
-				</div>
-				<div class="col-lg-8">
-					<div class="row">
-						<div class="col-sm-12 col-md-12 col-lg-3">
-							<p class="font-italic">Description</p>
-							<p class="text-info">{{description}}</p>
-						</div>
-						<div class="col-sm-12 col-md-12 col-lg-3">
-							<p class="font-italic">Price</p>
-							<p class="text-info">${{price}}</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-2">
-					<p>
-						<a href="/admin/editMenu/{{id}}" class="card-link mb-2">
-							<i class="fas fa-pencil-alt"></i>
-							Edit
-						</a>
-					</p>
-					<p>
-						<a href="/admin/deleteMenu/{{id}}" class="card-link" data-toggle="confirmation"
-							data-title="Confirm delete?">
-							<i class="far fa-trash-alt"></i>
-							Delete
-						</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div> --}}
+</div> --}}

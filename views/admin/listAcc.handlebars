@@ -29,10 +29,10 @@
                     User
                     {{/if}}
                 </th>
-                <th scope="row"><a href="/admin/editAcc/{{id}}" class="btn btn-info">Edit</a></th>
+                <th scope="row"><a href="/admin/editAcc/{{id}}" class="btn btn-info"><i class="fas fa-pencil-alt"></a></th>
                 <th scope="row"><a href="/admin/deleteAcc/{{id}}" class="btn btn-danger" data-toggle="confirmation"
                         data-title="Confirm delete?">
-                        <i class="far fa-trash-alt"></i>>Delete</a>
+                        <i class="far fa-trash-alt"></i></a>
                 </th>
 
             </tr>
@@ -48,7 +48,6 @@
     });
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     $.fn.pageMe = function (opts) {
         var $this = this,
