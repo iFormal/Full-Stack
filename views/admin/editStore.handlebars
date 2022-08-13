@@ -10,7 +10,7 @@
 						<div class="form-group">
 							{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
 							<label class="font-italic" for="name">Name</label>
-							<input class="form-control mb-1" id="name" name="name" value="{{store.name}}"
+							<input class="form-control mb-1" id="name" name="name" value="{{stores.name}}"
 								onblur="initialiseTitle()" />
 						</div>
 						<div class="form-group">
@@ -32,10 +32,10 @@
 							<label class="custom-file-label" for="customFile">Choose File</label>
 						</div>
 						<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
-						<img id="poster" src="{{store.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid"
+						<img id="poster" src="{{stores.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid"
 							onerror="this.src='/img/no-image.jpg'">
 						{{!—- Hidden field to submit URL of poster to the server --}}
-						<input id="posterURL" type="hidden" name="posterURL" value="{{store.posterURL}}">
+						<input id="posterURL" type="hidden" name="posterURL" value="{{stores.posterURL}}">
 					</div>
 				</div>
 				<br>
