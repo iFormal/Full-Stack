@@ -71,9 +71,9 @@ router.get('/userInterface', ensureAuthenticated, (req, res) => {
                     res.render('promotion/userInterface', { promotions, stores });
                 })
         })
-    .catch(err => console.log(err))
+        .catch(err => console.log(err))
 });
-    
+
 // router.get('/userInterface', (req, res) => {
 //     Promotion.findAll({
 //         order: [['dateRelease', 'DESC']],
@@ -126,14 +126,14 @@ router.post('/promotionalEmail', (req, res) => {
 router.get('/details/:id', ensureAuthenticated, (req, res) => {
     Store.findByPk(req.params.id)
         .then((stores) => {
-            for (var x in stores) {
-                if (req.id == x.id) {
-                    res.redirect('../../user/listStores2');
-                    return;
-                }
+            if (req.params.id == stores.id) {
+                res.redirect('../../user/listMenus2/' + stores.id);
+                return;
             }
-            flashMessage(res, 'error', 'Promotion not found');
-            res.redirect('/promotion/userInterface');
+            else {
+                flashMessage(res, 'error', 'Promotion not found');
+                res.redirect('/promotion/userInterface');
+            }
         })
         .catch(err => console.log(err));
 });
