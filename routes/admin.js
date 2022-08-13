@@ -318,14 +318,6 @@ router.post('/editStore/:id', ensureAuthenticated, ensureAuthorized, async funct
         // If all is well, checks if user is already registered
         let store = await Store.findOne({ where: { name: name } });
         if (store) {
-            // If user is found, that means email has already been registered
-            flashMessage(res, 'error', name + ' is already registered. Please try again.');
-            res.render('admin/editStore', {
-                name
-            });
-        }
-        else {
-            // Update new user record
             Store.update(
                 { name, category, posterURL },
                 { where: { id: req.params.id } }
