@@ -112,12 +112,17 @@ router.get('/emailverify/:token', async function (req, res) {
 });
 
 router.get('/', (req, res) => {
-	Promotion.findAll({
-		order: [['dateRelease', 'DESC']],
+	Store.findAll({
 		raw: true
 	})
-		.then((promotions) => {
-			res.render('index', { promotions })
+		.then((stores) => {
+			Promotion.findAll({
+				order: [['dateRelease', 'DESC']],
+				raw: true
+			})
+				.then((promotions) => {
+					res.render('index', { promotions , stores})
+				})
 		})
 		.catch(err => console.log(err));
 	// renders views/index.handlebars, passing title as an objectF

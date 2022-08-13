@@ -163,7 +163,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/listMenus', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Menu.findAll({
-        order: [['price']],
+        order: [['id']],
         raw: true
     })
         .then((menus) => {

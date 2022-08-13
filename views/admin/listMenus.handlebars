@@ -1,6 +1,6 @@
-<p></p>
+<br>
 <p class="h1 text-center">Product Management</p>
-<hr />
+<hr>
 
 {{#if menus}}
 <div class="card card-body bg-light" style="margin:auto">
@@ -33,6 +33,11 @@
             {{/each}}
         </tbody>
     </table>
+</div>
+{{else}}
+<div class="text-center">
+	<p class="h3">No Product Available</p>
+	<a type="button" href="/admin/addMenu" class="btn btn-primary ">Add Product</a>
 </div>
 {{/if}}
 

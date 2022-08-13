@@ -1,45 +1,43 @@
-<div class="menu">
-	<div class="heading">
-		<h1>Add Store</h1>
-	</div>
-	<div class="container">
-		<div class="card card-body">
-			<form action="" method="post">
-				<div class="row mb-3">
-					<div class="col-lg-9">
-						<div class="form-group">
-							{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
-							<label class="font-italic" for="name">Name</label>
-							<input class="form-control mb-1" id="name" name="name" onblur="initialiseTitle()" />
-						</div>
-						<div class="form-group">
-							<label class="font-italic" for="category">Category</label>
-							<br>
-							<select name="category" id="category">
-								<option value="Western">Western</option>
-								<option value="Chinese">Chinese</option>
-								<option value="Noodles">Noodles</option>
-								<option value="Fusion">Fusion</option>
-								<option value="Indian">Indian</option>
-							</select>
-						</div>
+<br>
+<p class="h1 text-center">Add Store</p>
+<hr>
+<div class="container">
+	<div class="card card-body">
+		<form action="" method="post">
+			<div class="row mb-3">
+				<div class="col-lg-9">
+					<div class="form-group">
+						{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+						<label class="font-italic" for="name">Name</label>
+						<input class="form-control mb-1" id="name" name="name" onblur="initialiseTitle()" />
 					</div>
-					<div class="col-lg-3">
-						<div class="custom-file mb-2">
-							<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"
-								accept="image/png,image/jpeg,image/jpg,image/gif">
-							<label class="custom-file-label" for="customFile">Choose File</label>
-						</div>
-						<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
-						<img id="poster" src="/img/no-image.jpg" alt="Poster" class="border img-thumbnail img-fluid">
-						{{!—- Hidden field to submit URL of poster to the server --}}
-						<input id="posterURL" type="hidden" name="posterURL">
+					<div class="form-group">
+						<label class="font-italic" for="category">Category</label>
+						<br>
+						<select name="category" id="category">
+							<option value="Western">Western</option>
+							<option value="Chinese">Chinese</option>
+							<option value="Noodles">Noodles</option>
+							<option value="Fusion">Fusion</option>
+							<option value="Indian">Indian</option>
+						</select>
 					</div>
 				</div>
-				<br>
-				<button id="btnSubmit" type="submit" class="btn btn-primary">Save
-				</button>
-			</form>
-		</div>
+				<div class="col-lg-3">
+					<div class="custom-file mb-2">
+						<input type="file" class="custom-file-input" id="posterUpload" name="posterUpload"
+							accept="image/png,image/jpeg,image/jpg,image/gif">
+						<label class="custom-file-label" for="customFile">Choose File</label>
+					</div>
+					<div class="text-danger small mb-2" id="posterErr" style="display:none"></div>
+					<img id="poster" src="/img/no-image.jpg" alt="Poster" class="border img-thumbnail img-fluid">
+					{{!—- Hidden field to submit URL of poster to the server --}}
+					<input id="posterURL" type="hidden" name="posterURL">
+				</div>
+			</div>
+			<br>
+			<button id="btnSubmit" type="submit" class="btn btn-primary">Save
+			</button>
+		</form>
 	</div>
 </div>
