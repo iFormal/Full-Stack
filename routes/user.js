@@ -153,13 +153,31 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                 raw: true
             })
                 .then((users) => {
-                    // pass object to listProduct.handlebar
-                    var totalprice = 0;
-                    for (var index in cart) {
-                        totalprice += cart[index].price * cart[index].quantity
-                        console.log(totalprice)
-                    }
-                    res.render('user/listProduct', { cart, totalprice, users });
+                    Promotion.findAll({
+                        order: [['dateRelease', 'DESC']],
+                        raw: true
+                    })
+                        .then((promotions) => {
+                            // pass object to listProduct.handlebar
+                            var totalprice = 0;
+                            for (var index in cart) {
+                                for (var x in promotions) {
+                                    if (promotions[x].menuid == cart[index].productid) {
+                                        var discount = (100 - promotions[x].discount)/100;
+                                        console.log(promotions[x].discount)
+                                        console.log(discount);
+                                        break;
+                                    }
+                                    else {
+                                        var discount = 1;
+                                    }
+                                }
+                                totalprice += cart[index].price * cart[index].quantity * discount
+                                console.log(totalprice)
+                            }
+                            res.render('user/listProduct', { cart, totalprice, users, discount});
+                        })
+                        .catch(err => console.log(err));
                 })
                 .catch(err => console.log(err));
         })
