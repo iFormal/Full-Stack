@@ -369,6 +369,7 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
         }
 
         let result = await Menu.destroy({ where: { id: menu.id } });
+        Cart.destroy({ where: { productid: menu.id } });
         console.log(result + ' menu deleted');
         res.redirect('/admin/listMenus');
     }
