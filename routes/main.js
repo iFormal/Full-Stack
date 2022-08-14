@@ -298,10 +298,6 @@ router.post('/flash', (req, res) => {
 	const error = 'This is an error message';
 	const error2 = 'This is the second error message';
 
-	// req.flash('message', message);
-	// req.flash('error', error);
-	// req.flash('error', error2);
-
 	flashMessage(res, 'success', message);
 	flashMessage(res, 'info', message);
 	flashMessage(res, 'error', error);
@@ -316,22 +312,5 @@ router.get('/logout', (req, res, next) => {
 		res.redirect('/');
 	});
 });
-
-// router.post('/upload', (req, res) => {
-//     // Creates user id directory for upload if not exist
-//     if (!fs.existsSync('./public/uploads/')) {
-//         fs.mkdirSync('./public/uploads/', { recursive: true });
-//     }
-
-//     upload(req, res, (err) => {
-//         if (err) {
-//             // e.g. File too large
-//             res.json({ file: '/img/no-image.jpg', err: err });
-//         }
-//         else {
-//             res.json({ file: `/uploads/${req.file.filename}` });
-//         }
-//     });
-// });
 
 module.exports = router;

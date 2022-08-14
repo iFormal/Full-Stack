@@ -70,17 +70,6 @@ router.get('/verify/:userId/:token', async function (req, res) {
         console.log(err);
     }
 });
-// router.get('/listAcc', ensureAuthenticated, (req, res) => {
-//     Users.findAll({
-//         where: { userId: req.user.id },
-//         raw: true
-//     })
-//         .then((user) => {
-//             // pass object to listVideos.handlebar 
-//             res.render('admin/listAcc', { user });
-//         })
-//         .catch(err => console.log(err));
-// });
 
 router.get('/editAcc/:id', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Users.findByPk(req.params.id)
@@ -298,11 +287,6 @@ router.get('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =>
                 res.redirect('/admin/listMenus');
                 return;
             }
-            // if (req.store.id != menu.storeId) {
-            //     flashMessage(res, 'error', 'Unauthorised access');
-            //     res.redirect('/admin/listMenus');
-            //     return;
-            // }
 
             res.render('admin/editMenu', { menu });
         })
@@ -383,11 +367,6 @@ router.get('/deleteMenu/:id', ensureAuthenticated, ensureAuthorized, async funct
             res.redirect('/admin/listMenus');
             return;
         }
-        // if (req.store.id != menu.storeId) {
-        //     flashMessage(res, 'error', 'Unauthorised access');
-        //     res.redirect('/admin/listMenus');
-        //     return;
-        // }
 
         let result = await Menu.destroy({ where: { id: menu.id } });
         console.log(result + ' menu deleted');
@@ -406,11 +385,6 @@ router.get('/deleteStore/:id', async function (req, res) {
             res.redirect('/admin/listStores');
             return;
         }
-        // if (req.user.id != store.userId) {
-        //     flashMessage(res, 'error', 'Unauthorised access');
-        //     res.redirect('/admin/listStores');
-        //     return;
-        // }
 
         let result = await Store.destroy({ where: { id: store.id } });
         console.log(result + ' store deleted');

@@ -6,8 +6,6 @@ const Order = require('../models/Order')
 const ensureAuthenticated = require('../helpers/auth');
 const flashMessage = require('../helpers/messenger');
 require('dotenv').config();
-const fetch = require('node-fetch');
-const Sequelize = require('sequelize');
 
 const fs = require('fs');
 const products = JSON.parse(fs.readFileSync('./data/product.json', 'utf8'));
@@ -44,11 +42,6 @@ router.post('/addProduct', ensureAuthenticated, (req, res) => {
     let userId = req.user.id;
     let productid = req.body.id;
 
-    // let cartitem = Product.findOne({where : {productid : productid}})
-    // if (cartitem){
-    //     // If product is found, that means product has already been added
-    // }
-    // else{
     Cart.create(
         {
             name, description, quantity, price, userId, productid
