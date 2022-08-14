@@ -153,8 +153,6 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                                 for (var x in promotions) {
                                     if (promotions[x].menuid == cart[index].productid) {
                                         var discount = (100 - promotions[x].discount) / 100;
-                                        console.log(promotions[x].discount)
-                                        console.log(discount);
                                         break;
                                     }
                                     else {
@@ -164,7 +162,7 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                                 totalprice += cart[index].price * cart[index].quantity * discount
                                 console.log(totalprice)
                             }
-                            res.render('user/listProduct', { cart, totalprice, users, discount });
+                            res.render('user/listProduct', { cart, totalprice, users, promotions });
                         })
                         .catch(err => console.log(err));
                 })
