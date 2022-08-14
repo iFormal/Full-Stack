@@ -26,13 +26,12 @@ router.get('/listMenus2/:id', ensureAuthenticated, (req, res) => {
     Store.findByPk(req.params.id)
         .then((store) => {
             Menu.findAll({
-                where: {storeId: req.params.id},
+                where: { storeId: req.params.id },
                 raw: true
             })
-            .then((menu) =>
-            {
-                res.render('user/listMenus2', { store, menu });
-            })
+                .then((menu) => {
+                    res.render('user/listMenus2', { store, menu });
+                })
         })
         .catch(err => console.log(err));
 });
@@ -55,16 +54,15 @@ router.post('/listMenus2/:id', ensureAuthenticated, (req, res) => {
             console.log(cart.toJSON());
             flashMessage(res, 'success', name + ' added to cart');
             Store.findByPk(req.params.id)
-            .then((store) => {
-                Menu.findAll({
-                    where: {storeId: req.params.id},
-                    raw: true
+                .then((store) => {
+                    Menu.findAll({
+                        where: { storeId: req.params.id },
+                        raw: true
+                    })
+                        .then((menu) => {
+                            res.render('user/listMenus2', { store, menu });
+                        })
                 })
-                .then((menu) =>
-                {
-                    res.render('user/listMenus2', { store, menu });
-                })
-            })
         })
         .catch(err => console.log(err))
 });
@@ -85,14 +83,13 @@ router.get('/profile/:id', ensureAuthenticated, (req, res) => {
                 where: { userId: req.params.id },
                 raw: true
             })
-            .then((orders) => {
-                if (users.id != req.user.id)
-                {
-                    flashMessage(res, 'error', "Unauthorized Access to other's profiles.");
-                    res.redirect('/user/home');
-                }
-                res.render('user/profile', { users, orders });
-            })
+                .then((orders) => {
+                    if (users.id != req.user.id) {
+                        flashMessage(res, 'error', "Unauthorized Access to other's profiles.");
+                        res.redirect('/user/home');
+                    }
+                    res.render('user/profile', { users, orders });
+                })
         })
         .catch(err => console.log(err));
 });
@@ -109,6 +106,7 @@ router.post('/profile/editProfile/:id', async function (req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let posterURL = req.body.posterURL;
+    let address = req.body.address;
 
     try {
         // If all is well, checks if user is already registered
@@ -124,7 +122,7 @@ router.post('/profile/editProfile/:id', async function (req, res) {
         else {
             // Create new user record
             User.update(
-                { name, posterURL, email },
+                { name, posterURL, email, address },
                 { where: { id: req.params.id } }
             )
                 .then((result) => {
@@ -140,7 +138,7 @@ router.post('/profile/editProfile/:id', async function (req, res) {
 });
 
 router.get('/home', (req, res) => {
-    res.render('user/home', {title: title})
+    res.render('user/home', { title: title })
     // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
 });
 
@@ -150,15 +148,21 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
         raw: true
     })
         .then((cart) => {
-            // pass object to listProduct.handlebar
-            var totalprice = 0;
-            for (var index in cart) {
-                totalprice += cart[index].price * cart[index].quantity
-                console.log(totalprice)
-            }
-            res.render('user/listProduct', { cart, totalprice });
+            User.findAll({
+                where: { id: req.user.id },
+                raw: true
+            })
+                .then((users) => {
+                    // pass object to listProduct.handlebar
+                    var totalprice = 0;
+                    for (var index in cart) {
+                        totalprice += cart[index].price * cart[index].quantity
+                        console.log(totalprice)
+                    }
+                    res.render('user/listProduct', { cart, totalprice, users });
+                })
+                .catch(err => console.log(err));
         })
-        .catch(err => console.log(err));
 });
 
 router.get('/minusQuantity/:id', ensureAuthenticated, async function (req, res) {

@@ -219,7 +219,7 @@ router.post('/forgotPw', async function (req, res) {
 });
 
 router.post('/register', async function (req, res) {
-	let { name, email, password, password2, status, posterURL } = req.body;
+	let { name, email, password, password2, status, posterURL, address } = req.body;
 
 	let isValid = true;
 	if (password.length < 6) {
@@ -252,7 +252,7 @@ router.post('/register', async function (req, res) {
 			var salt = bcrypt.genSaltSync(10);
 			var hash = bcrypt.hashSync(password, salt);
 			// Use hashed password
-			let user = await User.create({ name, email, status, password: hash, posterURL, verified: 0 });
+			let user = await User.create({ name, email, status, password: hash, posterURL, verified: 0, address});
 			// Send email
 			let token = jwt.sign(email, process.env.APP_SECRET);
 			let url = `${process.env.BASE_URL}:${process.env.PORT}/verify/${user.id}/${token}`;

@@ -60,6 +60,11 @@
 				<label for="safety pin">Safety Pin</label>
 				<input type="text" onkeypress="return onlyNumberKey(event)" minlength="3" maxlength="3" class="form-control" required>
 			</div>
+			<div>
+				<label for="address">Delivery Address:</label>
+				<input type="address" class = "form-control" name = "address" readonly value = "{{user.address}}">
+			</div>
+			<p></p>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 	</form>
