@@ -202,12 +202,12 @@ router.get('/deleteOrder/:id', ensureAuthenticated, async function (req, res) {
         let order = await Order.findByPk(req.params.id);
         if (!order) {
             flashMessage(res, 'error', 'Order not found');
-            res.redirect('/user/listProduct');
+            res.redirect('/admin/listOrders');
             return;
         }
         let result = await Order.destroy({ where: { id: order.id } });
         console.log(result + ' order deleted');
-        res.redirect('/user/listProduct');
+        res.redirect('/admin/listOrders');
     }
     catch (err) {
         console.log(err);
