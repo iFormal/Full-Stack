@@ -7,16 +7,25 @@
 <div class="container">
 	<div class="row">
 		{{#each menu}}
+		<div style="width:30%; margin:auto;">
+		<form class="product" method="post">
 		<div class="col">
-			<div class="card" style="width: 18rem; margin: auto; margin-bottom: 20px">
+			<div class="card" style="margin: auto; margin-bottom: 20px">
 				<img src="{{posterURL}}" class="card-img-top" alt="{{name}}"
 					style="width: 100%; height: 10vw; object-fit: cover;">
 				<div class="card-body">
-					<h5 class="card-title">{{name}}</h5>
+					<input hidden="hidden" class="form-control mb-1" id="id" name="id" value="{{id}}"
+					onblur="initialiseTitle()" />
+					<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}"
+					onblur="initialiseTitle()" /><b>{{name}}</b>
 					<p class="card-text">{{description}}</p>
-          <p class="card-text btn btn-primary">Add to Cart</p>
+					<p class="price-value"><input hidden="hidden" class="form-control mb-1" id="price" name="price" value="{{price}}"
+						onblur="initialiseTitle()" />${{price}} </p>
+					<p><input type="image" src="/img/cart.png"></p>
 				</div>
 			</div>
+		</div>
+		</form>
 		</div>
 		{{/each}}
 	</div>

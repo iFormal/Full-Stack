@@ -261,7 +261,8 @@ router.post('/listProduct', ensureAuthenticated, (req, res) => {
             Cart.destroy(
                 {
                     where: {
-                        userId: userId},
+                        userId: userId
+                    },
                 }
             );
         })

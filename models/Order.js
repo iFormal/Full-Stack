@@ -5,7 +5,8 @@ const db = require('../config/DBConfig');
 const Order = db.define('order',
     {
         cart: {type: Sequelize.JSON},
-        totalprice: {type: Sequelize.DECIMAL(10, 2)}
+        totalprice: {type: Sequelize.DECIMAL(10, 2)},
+        status: { type: Sequelize.INTEGER(1)}
     });
 
 module.exports = Order;
