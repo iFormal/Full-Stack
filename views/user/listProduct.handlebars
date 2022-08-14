@@ -28,10 +28,9 @@
 							<a href="/user/addQuantity/{{id}}">+</a>
 						</td>
 						<td>
-							<a href="/user/deleteProduct/{{id}}" class="card-link" data-toggle="confirmation"
+							<a href="/user/deleteProduct/{{id}}" class="card-link btn btn-danger" data-toggle="confirmation"
 								data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
-								Delete
 							</a>
 						</td>
 					</tr>
@@ -69,7 +68,7 @@
 		</div>
 	</form>
 	<form style="width:1%; height: 90%;">
-		<input type="button" value="Order More" onclick="history.back()">
+		<input class="btn btn-primary" type="button" value="Back to Order" onclick="history.back()">
 	</form>
 	{{else}}
 	<h3>No Products</h3>

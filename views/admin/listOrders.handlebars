@@ -13,12 +13,12 @@
 					{{else}}
 					Currently Delivering!
 					<input type="hidden" id="status" name="status" value="{{status}}" />
-					<a class = "float-right" href="/admin/updateDelivery/{{id}}">Update status to "Delivered!"</a>
+					<a class = "float-right btn btn-primary" href="/admin/updateDelivery/{{id}}">Update status to "Delivered!"</a>
 					{{/if}}
 					{{else}}
 					Preparing to Deliver!
 					<input type="hidden" id="status" name="status" value="{{status}}" />
-					<a class = "float-right" href="/admin/updateDelivery/{{id}}">Update status to "Currently Delivering!"</a>
+					<a class = "float-right btn btn-primary" href="/admin/updateDelivery/{{id}}">Update status to "Delivering"</a>
 					{{/if}}
 
 				</h6>
@@ -37,7 +37,7 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="/admin/deleteOrder/{{id}}" class="card-link" data-toggle="confirmation"
+							<a href="/admin/deleteOrder/{{id}}" class="card-link btn btn-danger" data-toggle="confirmation"
 								data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
 								Delete
