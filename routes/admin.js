@@ -139,6 +139,24 @@ router.get('/deleteAcc/:id', ensureAuthenticated, ensureAuthorized, async functi
     }
 });
 
+router.get('/updateDelivery/:id', ensureAuthenticated, ensureAuthorized, async function (req, res) {
+    try {
+        let order = await Order.findByPk(req.params.id);
+        if (!order) {
+            flashMessage(res, 'error', 'Order not found');
+            res.redirect('/admin/listOrders');
+            return;
+        }
+
+        let result = await Order.increment({ status: 1 }, { where: { id: order.id } });
+        console.log(result + ' delivery status updated!');
+        res.redirect('/admin/listOrders');
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
 router.get('/listAcc', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Users.findAll({
         raw: true

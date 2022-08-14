@@ -6,12 +6,26 @@
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
 				<h5 class="card-title">Order id: {{id}}</h5>
+				<h6 class="card-title">Delivery Status:
+					{{#if status includeZero = true}}
+					{{#if status includeZero = false}}
+					Delivered!
+					{{else}}
+					Currently Delivering!
+					{{/if}}
+					{{else}}
+					Preparing to Deliver!
+					{{/if}}
+
+				</h6>
+				<input type="hidden" id="status" name="status" value="{{status}}" /> {{status}}
+				<a href="/admin/updateDelivery/{{id}}">+</a>
 			</div>
 			<div class="card-body">
-                <table>
+				<table>
 					<tr>
 						<th>Name, Quantity</th>
-						
+
 					</tr>
 					<tr>
 						<th>{{replaceCommas cart}}</th>
@@ -19,15 +33,15 @@
 					<tr>
 						<th>Total Price: ${{totalprice}}</th>
 					</tr>
-                    <tr>
-                        <td>
-                            <a href="/admin/deleteOrder/{{id}}" class="card-link" data-toggle="confirmation"
+					<tr>
+						<td>
+							<a href="/admin/deleteOrder/{{id}}" class="card-link" data-toggle="confirmation"
 								data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
 								Delete
 							</a>
-                        </td>
-                    </tr>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

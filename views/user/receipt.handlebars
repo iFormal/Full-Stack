@@ -6,9 +6,21 @@
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
 				<h5 class="card-title">Order id: {{id}}</h5>
+				<h6>
+					{{#if status includeZero = true}}
+					{{#if status includeZero = false}}
+					Delivered!
+					{{else}}
+					Currently Delivering!
+					{{/if}}
+					{{else}}
+					Preparing to Deliver!
+					{{/if}}
+
+				</h6>
 			</div>
 			<div class="card-body">
-                <table>
+				<table>
 					<tr>
 						<th>Name, Quantity</th>
 					</tr>
@@ -25,7 +37,7 @@
 	</div>
 	{{else}}
 	<h3>No Orders</h3>
-    <a href="/user/listStores2"> Start Ordering Now</a>
+	<a href="/user/listStores2"> Start Ordering Now</a>
 	{{/if}}
 </div>
 

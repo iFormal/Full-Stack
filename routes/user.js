@@ -200,9 +200,10 @@ router.get('/addQuantity/:id', ensureAuthenticated, async function (req, res) {
             res.redirect('/user/listProduct');
             return;
         }
-        let d = await Cart.increment({ quantity: 1 }, { where: { id: cart.id } });
-        console.log(d + ' product minus 1');
-        res.redirect('/user/listProduct');
+        if (cart.quantity < 10) {
+            let d = await Cart.increment({ quantity: 1 }, { where: { id: cart.id } });
+            res.redirect('/user/listProduct');
+        }
     }
     catch (err) {
         console.log(err);
