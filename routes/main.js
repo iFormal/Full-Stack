@@ -121,8 +121,15 @@ router.get('/', (req, res) => {
 				raw: true
 			})
 				.then((promotions) => {
-					res.render('index', { promotions , stores})
+					User.findAll({
+						raw: true
+					})
+					.then((users) =>
+					{
+						res.render('index', { promotions , stores, users})
+					})
 				})
+
 		})
 		.catch(err => console.log(err));
 	// renders views/index.handlebars, passing title as an objectF

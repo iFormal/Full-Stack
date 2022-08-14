@@ -1,12 +1,12 @@
 <!-- Jumbotron -->
 <style>
-.card:hover {
-transform: scale(1.1)
-}
+	.card:hover {
+		transform: scale(1.1)
+	}
 
-.card {
-    transition: transform 0.2s ease;
-}
+	.card {
+		transition: transform 0.2s ease;
+	}
 </style>
 <div class="p-5 text-left bg-image" style="
     background-image: url('/img/katsubanner.jpg');
@@ -81,8 +81,8 @@ transform: scale(1.1)
 					{{#each stores}}
 					<div class="item mb-4">
 						<div class="card border-0 shadow" style="height: 292px; width: 400px;">
-							<a href="/user/listMenus2/{{id}}"><img src="{{posterURL}}" alt="poster"
-									class="card-img-top" style="height: 292px; width: 400px;"></a>
+							<a href="/user/listMenus2/{{id}}"><img src="{{posterURL}}" alt="poster" class="card-img-top"
+									style="height: 292px; width: 400px;"></a>
 						</div>
 					</div>
 					{{/each}}
@@ -112,4 +112,56 @@ transform: scale(1.1)
 </body>
 {{else}}
 <h3>no stores</h3>
+{{/if}}
+
+{{#if users}}
+
+<body>
+	<section>
+		<div class="container-fluid my-5">
+			<h1 class="text-center fw-bold display-5 mb-3">User Reviews</h1>
+			<hr>
+			<div class="row mt-5">
+				<div class="owl-carousel owl-theme">
+					{{#each users}}
+					{{#if rating}}
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								{{rating}} out of 5!
+							</h5>
+							<h6 class="card-subtitle mb-2 text-muted">
+								"{{feedback}}"
+							</h6>
+							<h7 class="card-subtitle mb-2 text-muted">
+								-{{name}}
+							</h7>
+						</div>
+					</div>
+					{{/if}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+		$('.owl-carousel').owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: true,
+			responsive: {
+				0: {
+					items: 1
+				},
+				600: {
+					items: 2
+				},
+				1000: {
+					items: 3
+				}
+			}
+		})
+	</script>
+
+</body>
 {{/if}}

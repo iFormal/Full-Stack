@@ -1,12 +1,12 @@
 {{#if menu}}
 <style>
-.card:hover {
-transform: scale(1.03)
-}
+	.card:hover {
+		transform: scale(1.03)
+	}
 
-.card {
-    transition: transform 0.2s ease;
-}
+	.card {
+		transition: transform 0.2s ease;
+	}
 </style>
 <p></p>
 <p class="h1 text-center">{{store.name}}'s Menu</p>
@@ -24,11 +24,15 @@ transform: scale(1.03)
 						<div class="card-body">
 							<input hidden="hidden" class="form-control mb-1" id="id" name="id" value="{{id}}"
 								onblur="initialiseTitle()" />
-							<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}"
-								onblur="initialiseTitle()" /><b>{{name}}</b>
+							<div class="d-flex flex-row justify-content-between">
+								<input hidden="hidden" class="form-control mb-1" id="name" name="name" value="{{name}}"
+									onblur="initialiseTitle()" /><b>{{name}}</b>
+								<b><p class="price-value justify-right"><input hidden="hidden" class="form-control mb-1"
+										id="price" name="price" value="{{price}}"
+										onblur="initialiseTitle()" />${{price}}
+								</p></b>
+							</div>
 							<p class="card-text">{{description}}</p>
-							<p class="price-value"><input hidden="hidden" class="form-control mb-1" id="price"
-									name="price" value="{{price}}" onblur="initialiseTitle()" />${{price}} </p>
 							<p><input type="image" src="/img/atc.png"></p>
 						</div>
 					</div>
