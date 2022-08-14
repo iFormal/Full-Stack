@@ -1,14 +1,16 @@
 <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
 
-<div class="heading">
-    <h1>User Profile</h1>
-    <a href="editProfile/{{users.id}}">Edit Profile</a>
+<br>
+<p class="h1 text-center">User Profile</p>
+<div class="d-flex justify-content-center">
+    <a class = "btn btn-primary" href="editProfile/{{users.id}}">Edit Profile</a>
 </div>
+<hr>
 
 <div class=".col-md-20" style="display: flex; flex-direction: row;">
     <div class="text-danger small mb-3" id="posterErr" style="display:none"></div>
-    <img id="poster" src="{{users.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" style="max-height:250px; max-width:250px;"
-        onerror="this.src='/img/no-image.jpg'">
+    <img id="poster" src="{{users.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid"
+        style="max-height:250px; max-width:250px;" onerror="this.src='/img/no-image.jpg'">
     <div class="card card-body">
         <div class="col-xl-10">
             <div class="col-xl-8" style="display: flex; flex-direction: row;">
@@ -17,7 +19,8 @@
             </div>
             <p></p>
             <p>Account Created On: {{formatDate users.createdAt 'DD/MM/YY'}}</p>
-            <p>Purchases Made: 0</p>
+            <p>Account Updated On: {{formatDate users.updatedAt 'DD/MM/YY'}}</p>
+            <p>Purchases Made: {{orderCount}}</p>
         </div>
     </div>
     <div class="card card-body col-xl-4">

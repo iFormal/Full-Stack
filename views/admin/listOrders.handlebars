@@ -12,14 +12,16 @@
 					Delivered!
 					{{else}}
 					Currently Delivering!
+					<input type="hidden" id="status" name="status" value="{{status}}" />
+					<a class = "float-right" href="/admin/updateDelivery/{{id}}">Update status to "Delivered!"</a>
 					{{/if}}
 					{{else}}
 					Preparing to Deliver!
+					<input type="hidden" id="status" name="status" value="{{status}}" />
+					<a class = "float-right" href="/admin/updateDelivery/{{id}}">Update status to "Currently Delivering!"</a>
 					{{/if}}
 
 				</h6>
-				<input type="hidden" id="status" name="status" value="{{status}}" /> {{status}}
-				<a href="/admin/updateDelivery/{{id}}">+</a>
 			</div>
 			<div class="card-body">
 				<table>

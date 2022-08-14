@@ -148,9 +148,21 @@ router.get('/updateDelivery/:id', ensureAuthenticated, ensureAuthorized, async f
             return;
         }
 
-        let result = await Order.increment({ status: 1 }, { where: { id: order.id } });
-        console.log(result + ' delivery status updated!');
-        res.redirect('/admin/listOrders');
+        if (order.status < 1) {
+            let result = await Order.increment({ status: 1 }, { where: { id: order.id } });
+            console.log(result + ' delivery status updated!');
+            res.redirect('/admin/listOrders');
+        }
+        else
+        {
+            console.log("nope");
+            res.redirect('/admin/listOrders');
+        }
+        if (order.status == null) {
+            let result = await Order.update({ status: 0 }, { where: { id: order.id } });
+            console.log(result + ' delivery status updated!');
+            res.redirect('/admin/listOrders');
+        }
     }
     catch (err) {
         console.log(err);
@@ -235,11 +247,10 @@ router.get('/deleteOrder/:id', ensureAuthenticated, async function (req, res) {
 router.get('/addMenu', ensureAuthenticated, ensureAuthorized, (req, res) => {
     Store.findAll({
         raw: true
-    }).then((stores) =>
-    {
-        res.render('admin/addMenu', {stores});
+    }).then((stores) => {
+        res.render('admin/addMenu', { stores });
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 });
 
 router.post('/addMenu', ensureAuthenticated, (req, res) => {
@@ -310,7 +321,7 @@ router.post('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
     )
     Cart.update(
         { name, description, price, posterURL },
-        { where: { productid: req.params.id} }
+        { where: { productid: req.params.id } }
     )
         .then((result) => {
             console.log(result[0] + ' menu updated');
@@ -491,39 +502,39 @@ router.get('/registerStore', ensureAuthenticated, ensureAuthorized, (req, res) =
 });
 
 router.post('/registerStore', async function (req, res) {
-	let { name, category, posterURL, userId} = req.body;
+    let { name, category, posterURL, userId } = req.body;
 
-	let isValid = true;
-	if (category == null) {
-		flashMessage(res, 'error', 'Category cannot be empty.');
-		isValid = false;
-	}
-	if (!isValid) {
-		res.render('admin/registerStore', {
-			name
-		});
-		return;
-	}
+    let isValid = true;
+    if (category == null) {
+        flashMessage(res, 'error', 'Category cannot be empty.');
+        isValid = false;
+    }
+    if (!isValid) {
+        res.render('admin/registerStore', {
+            name
+        });
+        return;
+    }
 
-	try {
-		// If all is well, checks if store is already registered
-		let store = await Store.findOne({ where: { name: name } });
-		if (store) {
-			// If store name is found, that means store name has already been registered
-			flashMessage(res, 'error', name + ' already exist');
-			res.render('admin/registerStore', {
-				name
-			});
-		}
-		else {
-		    let store = await Store.create({ name, category, posterURL, userId});
+    try {
+        // If all is well, checks if store is already registered
+        let store = await Store.findOne({ where: { name: name } });
+        if (store) {
+            // If store name is found, that means store name has already been registered
+            flashMessage(res, 'error', name + ' already exist');
+            res.render('admin/registerStore', {
+                name
+            });
+        }
+        else {
+            let store = await Store.create({ name, category, posterURL, userId });
             flashMessage(res, 'success', store.name + ' registered successfully');
-                    res.redirect('/admin/listStores');
-		}
-	}
-	catch (err) {
-		console.log(err);
-	}
+            res.redirect('/admin/listStores');
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 module.exports = router;
