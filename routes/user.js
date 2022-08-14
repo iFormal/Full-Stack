@@ -160,20 +160,18 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                         .then((promotions) => {
                             // pass object to listProduct.handlebar
                             var totalprice = 0;
+                            var discount = 1;
                             for (var index in cart) {
                                 for (var x in promotions) {
                                     if (cart[index].productid == promotions[x].menuid) {
                                         var discount = (100 - promotions[x].discount)/100;
                                         break;
                                     }
-                                    else {
-                                        var discount = 1;
-                                    }
                                 }
                                 totalprice += cart[index].price * cart[index].quantity * discount
                                 console.log(totalprice)
                             }
-                            res.render('user/listProduct', { cart, totalprice, users });
+                            res.render('user/listProduct', { cart, totalprice, users});
                         })
                         .catch(err => console.log(err));
                 })
