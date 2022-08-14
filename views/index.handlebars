@@ -1,4 +1,13 @@
 <!-- Jumbotron -->
+<style>
+.card:hover {
+transform: scale(1.1)
+}
+
+.card {
+    transition: transform 0.2s ease;
+}
+</style>
 <div class="p-5 text-left bg-image" style="
     background-image: url('/img/katsubanner.jpg');
 	background-size: cover;
@@ -72,7 +81,7 @@
 					{{#each stores}}
 					<div class="item mb-4">
 						<div class="card border-0 shadow" style="height: 292px; width: 400px;">
-							<a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="poster"
+							<a href="/user/listMenus2/{{id}}"><img src="{{posterURL}}" alt="poster"
 									class="card-img-top" style="height: 292px; width: 400px;"></a>
 						</div>
 					</div>
