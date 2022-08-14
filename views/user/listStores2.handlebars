@@ -1,12 +1,12 @@
 <br>
 <p class="h1 text-center">Popular Stores</p>
-<hr />
+<hr>
 {{#if stores}}
 <div class="container">
 	<div class="row">
 		{{#each stores}}
-		<div class="col">
-			<div class="card" style="width: 18rem; margin: auto; ">
+		<div class="col-sm">
+			<div class="card" style="width: 18rem; margin: auto; margin-bottom: 20px;">
 				<a href="/user/listMenus2/{{id}}" data-title="{{name}}" data-toggle="lightbox">
 					<img src="{{posterURL}}" alt="Poster" class="card-img-top"
 						onerror="this.src='/img/no-image.jpg'" style="max-height:160px">

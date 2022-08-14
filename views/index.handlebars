@@ -21,7 +21,7 @@
 <body>
 	<section>
 		<div class="container-fluid my-5">
-			<h1 class="text-center fw-bold display-4 mb-3">Ongoing Promotions</h1>
+			<h1 class="text-center fw-bold display-5 mb-3">Ongoing Promotions</h1>
 			<hr>
 			<div class="row mt-5">
 				<div class="owl-carousel owl-theme">
@@ -59,4 +59,48 @@
 </body>
 {{else}}
 {{/if}}
-<!-- Jumbotron -->
+
+{{#if stores}}
+
+<body>
+	<section>
+		<div class="container-fluid my-5">
+			<h1 class="text-center fw-bold display-5 mb-3">Popular Stores</h1>
+			<hr>
+			<div class="row mt-5">
+				<div class="owl-carousel owl-theme">
+					{{#each stores}}
+					<div class="item mb-4">
+						<div class="card border-0 shadow" style="height: 292px; width: 400px;">
+							<a href="/promotion/details/{{storeid}}"><img src="{{posterURL}}" alt="poster"
+									class="card-img-top" style="height: 292px; width: 400px;"></a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+		$('.owl-carousel').owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: true,
+			responsive: {
+				0: {
+					items: 1
+				},
+				600: {
+					items: 2
+				},
+				1000: {
+					items: 3
+				}
+			}
+		})
+	</script>
+
+</body>
+{{else}}
+<h3>no stores</h3>
+{{/if}}
