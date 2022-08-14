@@ -162,7 +162,7 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                                 totalprice += cart[index].price * cart[index].quantity * discount
                                 console.log(totalprice)
                             }
-                            res.render('user/listProduct', { cart, totalprice, users, promotions });
+                            res.render('user/listProduct', { cart, totalprice, users });
                         })
                         .catch(err => console.log(err));
                 })
