@@ -68,14 +68,17 @@ router.get('/listStores2', ensureAuthenticated, (req, res) => {
 router.get('/profile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
         .then((users) => {
+            console.log(users);
             Order.findAll({
                 where: { userId: req.params.id },
                 raw: true
             })
                 .then((orders) => {
+                    console.log(users.id);
+                    console.log(req.params.id);
                     if (users.id != req.user.id) {
                         flashMessage(res, 'error', "Unauthorized Access to other's profiles.");
-                        res.redirect('/user/home');
+                        res.redirect('/');
                     }
                     res.render('user/profile', { users, orders });
                 })
@@ -83,7 +86,7 @@ router.get('/profile/:id', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.get('/profile/editProfile/:id', ensureAuthenticated, (req, res) => {
+router.get('/editProfile/:id', ensureAuthenticated, (req, res) => {
     User.findByPk(req.params.id)
         .then((user) => {
             res.render('user/editProfile', { user })
@@ -91,7 +94,7 @@ router.get('/profile/editProfile/:id', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 })
 
-router.post('/profile/editProfile/:id', async function (req, res) {
+router.post('/editProfile/:id', async function (req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let posterURL = req.body.posterURL;
@@ -112,12 +115,12 @@ router.post('/profile/editProfile/:id', async function (req, res) {
             // Create new user record
             User.update(
                 { name, posterURL, email, address },
-                { where: { id: req.params.id } }
+                { where: { id: req.user.id } }
             )
                 .then((result) => {
                     console.log(result[0] + ' user updated!');
                     flashMessage(res, 'success', name + '\'s profile has been updated!');
-                    res.redirect('/user/profile/:id');
+                    res.redirect('/');
                 })
         }
     }
@@ -126,10 +129,6 @@ router.post('/profile/editProfile/:id', async function (req, res) {
     }
 });
 
-router.get('/home', (req, res) => {
-    res.render('user/home', { title: title })
-    // title is defined, sent into the index.handlebars, {title thingamajig} sends const title into index.
-});
 
 router.get('/listProduct', ensureAuthenticated, (req, res) => {
     Cart.findAll({
@@ -153,7 +152,7 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                             for (var index in cart) {
                                 for (var x in promotions) {
                                     if (promotions[x].menuid == cart[index].productid) {
-                                        var discount = (100 - promotions[x].discount)/100;
+                                        var discount = (100 - promotions[x].discount) / 100;
                                         console.log(promotions[x].discount)
                                         console.log(discount);
                                         break;
@@ -165,7 +164,7 @@ router.get('/listProduct', ensureAuthenticated, (req, res) => {
                                 totalprice += cart[index].price * cart[index].quantity * discount
                                 console.log(totalprice)
                             }
-                            res.render('user/listProduct', { cart, totalprice, users, discount});
+                            res.render('user/listProduct', { cart, totalprice, users, discount });
                         })
                         .catch(err => console.log(err));
                 })
@@ -256,15 +255,14 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.get('/review', ensureAuthenticated, (req, res) =>{
+router.get('/review', ensureAuthenticated, (req, res) => {
     User.findAll({
         where: { id: req.user.id },
         raw: true
     })
-    .then((users) => 
-    {
-        res.render('user/review', { users });
-    })
+        .then((users) => {
+            res.render('user/review', { users });
+        })
 });
 
 router.post('/review', ensureAuthenticated, (req, res) => {
@@ -275,14 +273,14 @@ router.post('/review', ensureAuthenticated, (req, res) => {
     console.log(req.body.email);
 
     User.update(
-        { rating, feedback},
-        { where: {email: req.body.email}}
+        { rating, feedback },
+        { where: { email: req.body.email } }
     )
-    .then((result) => {
-        console.log(result[0] + ' user updated!');
-        flashMessage(res, 'success', 'Review successfully sent!');
-        res.redirect('/');
-    })
+        .then((result) => {
+            console.log(result[0] + ' user updated!');
+            flashMessage(res, 'success', 'Review successfully sent!');
+            res.redirect('/');
+        })
 
 });
 
