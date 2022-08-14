@@ -13,7 +13,6 @@ const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 // Required for sending of promotional email
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
 
 router.get('/listPromotions', ensureAuthenticated, (req, res) => {
@@ -74,53 +73,46 @@ router.get('/userInterface', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err))
 });
 
-// router.get('/userInterface', (req, res) => {
-//     Promotion.findAll({
-//         order: [['dateRelease', 'DESC']],
-//         raw: true
-//     })
-//         .then((promotions) => {
-//             res.render('promotion/userInterface', { promotions });
-//         })
-//         .catch(err => console.log(err));
-// });
-
 router.get('/promotionalEmail', ensureAuthenticated, (req, res) => {
-    res.render('promotion/promotionalEmail');
-})
-
-router.post('/promotionalEmail', (req, res) => {
     User.findAll({
         raw: true
     })
         .then((users) => {
-            let isValid = true;
-            if (!isValid) {
-                flashMessage(res, 'error', 'Extra');
-                res.render('promotionionalEmail')
-            } else {
-                try {
-                    let email = User.findOne({ where: { email: email } });
-                    // Send email
-                    let token = jwt.sign(email, process.env.APP_SECRET);
-                    let url = `${process.env.BASE_URL}:${process.env.PORT}/promotionalEmail/${id}/${token}`;
-                    sendEmail(email, url)
-                        .then(response => {
-                            console.log(response);
-                            flashMessage(res, 'success', 'Email sent successfully');
-                            res.redirect('/promotion/promotionalEmail');
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            flashMessage(res, 'error', 'Error when sending email');
-                            res.redirect('/promotion/promotionalEmail');
-                        });
-                }
-                catch (err) {
-                    console.log(err);
-                }
-            }
+            Promotion.findAll({
+                order: [['dateRelease', 'DESC']],
+                raw: true
+            })
+                .then((promotions) => {
+                    // pass object to listPromotions.handlebar
+                    res.render('promotion/promotionalEmail', { users, promotions });
+                })
+                .catch(err => console.log(err));
         })
+})
+
+router.post('/promotionalEmail', async function (req, res) {
+    let { email, name } = req.body;
+    console.log(email);
+    console.log(name);
+    try {
+        let user = await User.findOne({ where: { email: email } });
+        let url = `${process.env.BASE_URL}:${process.env.PORT}/login`;
+        console.log(email);
+        sendEmail(user.email, url, name)
+            .then(response => {
+                console.log(response);
+                flashMessage(res, 'success', 'Email sent successfully');
+                res.redirect('/promotion/promotionalEmail');
+            })
+            .catch(err => {
+                console.log(err);
+                flashMessage(res, 'error', 'Error when sending email');
+                res.redirect('/promotion/promotionalEmail');
+            });
+    }
+    catch (err) {
+        console.log(err);
+    }
 })
 
 router.get('/details/:id', ensureAuthenticated, (req, res) => {
@@ -232,14 +224,14 @@ router.post('/upload', ensureAuthenticated, (req, res) => {
     });
 });
 
-function sendEmail(toEmail, url) {
+function sendEmail(toEmail, url, promotion) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const message = {
         to: toEmail,
-        from: `Video Jotter <${process.env.SENDGRID_SENDER_EMAIL}>`,
-        subject: 'Verify Video Jotter Account',
-        html: `Thank you registering with Video Jotter.<br><br> Please
-    <a href=\"${url}"><strong>verify</strong></a> your account.`
+        from: `South Canteen <${process.env.SENDGRID_SENDER_EMAIL}>`,
+        subject: 'New Promotion',
+        html: `A new promotion is available at South Canteen now.<br><br> Click
+    <a href=\"${url}"><strong>${promotion}</strong></a> to check for more info.`
     };
     // Returns the promise from SendGrid to the calling function
     return new Promise((resolve, reject) => {
