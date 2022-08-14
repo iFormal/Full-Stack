@@ -1,8 +1,9 @@
 <div class="container">
 	{{#if cart}}
+	<br>
 	<form method="post" action="">
 		<h3 class="text-primary">Shopping Cart</h3>
-		<div style="float: left;">
+		<div style="float: left; width:60%;">
 			<table border="2" width="100%" class="table table-striped">
 				<thead>
 					<tr>
@@ -44,7 +45,7 @@
 					</tr>
 			</table>
 		</div>
-		<div class="card card-body" style="float: right;">
+		<div class="card card-body" style="float: right; width:30%;">
 			<h1 class="display-6">Payment</h1>
 			<div class="form-group">
 				<label for="creditcard">Credit Card</label>
@@ -61,6 +62,9 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
+	</form>
+	<form style="width:1%; height: 90%;">
+		<input type="button" value="Order More" onclick="history.back()">
 	</form>
 	{{else}}
 	<h3>No Products</h3>
