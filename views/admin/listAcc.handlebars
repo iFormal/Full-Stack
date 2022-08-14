@@ -1,6 +1,6 @@
-<p></p>
+<br>
 <p class="h1 text-center">Accounts Management</p>
-<hr />
+<hr>
 {{#if users}}
 <div class="card card-body bg-light" style="margin:auto">
     <p class="h3">User & Admin Accounts <a type="button" href="/admin/registerAdmin" class="btn btn-primary">Add Admin
@@ -80,27 +80,27 @@
         pager.data("curr", 0);
 
         if (settings.showPrevNext) {
-            $('<li><a href="#" class="prev_link">«Previous</a></li>').appendTo(pager);
+            $('<li><a href="#" class="prev_link btn btn-dark ms-auto mt-3" style="text-decoration: none; color: white; margin-right: 10px">«</a></li>').appendTo(pager);
         }
 
         var curr = 0;
         // Added class and id in li start
-        while (numPages > curr && (settings.hidePageNumbers == true)) {
-            $('<li id="page-item' + (curr + 1) + '" class="page-item"><a href="#" class="page_link">' + (curr + 1) + '</a></li>').appendTo(pager);
+        while (numPages > curr && (settings.hidePageNumbers == false)) {
+            $('<li id="page-item' + (curr + 1) + '" class="page-item btn btn-dark mt-3" style="text-decoration: none; color: white; margin-right: 10px;"><a href="#" class="page_link" style="text-decoration: none; color: white;">' + (curr + 1) + '</a></li>').appendTo(pager);
             curr++;
         }
         // Added class and id in li end
 
         if (settings.showPrevNext) {
-            $('<li><a href="#" class="next_link">Next»</a></li>').appendTo(pager);
+            $('<li><a href="#" class="next_link btn btn-dark ms-auto mt-3" style="text-decoration: none; color: white; margin-left: 10px">»</a></li>').appendTo(pager);
         }
 
-        pager.find('.page_link:first').addClass('active');
+        pager.find('.page_link:first');
         pager.find('.prev_link').hide();
         if (numPages <= 1) {
             pager.find('.next_link').hide();
         }
-        pager.children().eq(1).addClass("active");
+        pager.children().eq(1);
 
         children.hide();
         children.slice(0, perPage).show();
