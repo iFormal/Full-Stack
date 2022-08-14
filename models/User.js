@@ -10,7 +10,9 @@ const User = db.define('user',
         password: { type: Sequelize.STRING },
         posterURL: { type: Sequelize.STRING}, 
         address: { type: Sequelize.STRING },
-        status: { type: Sequelize.INTEGER(1)}
+        status: { type: Sequelize.INTEGER(1)},
+        rating: {type: Sequelize.INTEGER(1)},
+        feedback: {type: Sequelize.STRING }
     });
 
 module.exports = User;

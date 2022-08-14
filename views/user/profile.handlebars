@@ -38,6 +38,19 @@
 <p></p>
 <div class="card card-body">
     <h4 style="text-decoration: underline;">Reviews</h4>
+    {{#if users.rating}}
+    Rating: {{users.rating}} out of 5!
+    {{/if}}<br>
+    {{#if users.feedback}}
+    Feedback: <i>"{{users.feedback}}"</i>
+    {{/if}}
+    {{#if orders}}
+    {{#if users.rating}}
+    <a class = "btn btn-primary" href="/user/review">Edit your review!</a>
+    {{else}}
+    <a class = "btn btn-primary" href="/user/review">Leave a review!</a>
+    {{/if}}
+    {{/if}}
 </div>
 
 <script>
