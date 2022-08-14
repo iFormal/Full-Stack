@@ -1,7 +1,6 @@
 <br>
 <p class="h1 text-center">Product Management</p>
 <hr>
-
 {{#if menus}}
 <div class="card card-body bg-light" style="margin:auto">
     <p class="h3">All Menu Products <a type="button" href="/admin/addMenu" class="btn btn-primary">Add Product</a></p>
@@ -9,9 +8,9 @@
     <p></p>
     <table class="table">
         <thead class="thead-dark">
-			<th scope="col">ID</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Store Name</th>
+			<th scope="col">Product ID</th>
+            <th scope="col">Store ID</th>
+            <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -20,8 +19,8 @@
             {{#each menus}}
             <tr>
 				<th scope="row">{{id}}</th>
-                <th scope="row">{{name}}</th>
                 <th scope="row">{{storeId}}</th>
+                <th scope="row">{{name}}</th>
                 <th scope="row">${{price}}</th>
                 <th scope="row"><a href="/admin/editMenu/{{id}}" class="btn btn-info"><i class="fas fa-pencil-alt"></a></th>
                 <th scope="row"><a href="/admin/deleteMenu/{{id}}" class="btn btn-danger" data-toggle="confirmation"

@@ -325,6 +325,7 @@ router.post('/editMenu/:id', ensureAuthenticated, ensureAuthorized, (req, res) =
     )
         .then((result) => {
             console.log(result[0] + ' menu updated');
+            flashMessage(res, 'success', name + ' has been updated!');
             res.redirect('/admin/listMenus');
         })
         .catch(err => console.log(err));
