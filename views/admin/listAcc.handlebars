@@ -16,7 +16,7 @@
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </thead>
-        <tbody id = "myTable">
+        <tbody id="myTable">
             {{#each users}}
             <tr>
                 <th scope="row">{{id}}</th>
@@ -40,7 +40,9 @@
         </tbody>
     </table>
 </div>
+<div class="col-md-12 text-right">
     <ul class="pagination pagination-lg pager" id="myPager"></ul>
+</div>
 {{/if}}
 <script>
     $('[data-toggle=confirmation]').confirmation({
@@ -49,6 +51,9 @@
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{{!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 <script>
     $.fn.pageMe = function (opts) {
         var $this = this,
@@ -78,19 +83,19 @@
         pager.data("curr", 0);
 
         if (settings.showPrevNext) {
-            $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+            $('<li><a href="#" class="prev_link">«Previous</a></li>').appendTo(pager);
         }
 
         var curr = 0;
         // Added class and id in li start
-        while (numPages > curr && (settings.hidePageNumbers == false)) {
-            $('<li id="pg' + (curr + 1) + '" class="pg"><a href="#" class="page_link">' + (curr + 1) + '</a></li>').appendTo(pager);
+        while (numPages > curr && (settings.hidePageNumbers == true)) {
+            $('<li id="page-item' + (curr + 1) + '" class="page-item"><a href="#" class="page_link">' + (curr + 1) + '</a></li>').appendTo(pager);
             curr++;
         }
         // Added class and id in li end
 
         if (settings.showPrevNext) {
-            $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+            $('<li><a href="#" class="next_link">Next»</a></li>').appendTo(pager);
         }
 
         pager.find('.page_link:first').addClass('active');
