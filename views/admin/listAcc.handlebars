@@ -13,6 +13,7 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Account Type</th>
+            <th scope="col">Review</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </thead>
@@ -29,6 +30,7 @@
                     User
                     {{/if}}
                 </th>
+                <th scope="row" class="text-truncate" style="max-width: 150px;">{{feedback}}</th>
                 <th scope="row"><a href="/admin/editAcc/{{id}}" class="btn btn-info"><i class="fas fa-pencil-alt"></a></th>
                 <th scope="row"><a href="/admin/deleteAcc/{{id}}" class="btn btn-danger" data-toggle="confirmation"
                         data-title="Confirm delete?">
