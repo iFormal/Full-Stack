@@ -4,10 +4,10 @@ const db = require('../config/DBConfig');
 const Promotion = db.define('promotion',
     {
         name: { type: Sequelize.STRING },
-        description: { type: Sequelize.STRING(2000) },
+        discount: { type: Sequelize.INTEGER },
         storeid: { type: Sequelize.STRING },
+        menuid: { type: Sequelize.STRING },
         posterURL: { type: Sequelize.STRING },
         dateRelease: { type: Sequelize.DATE },
-        useremail : {type: Sequelize.STRING}
     });
 module.exports = Promotion;

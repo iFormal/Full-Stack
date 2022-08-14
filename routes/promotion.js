@@ -4,6 +4,7 @@ const User = require('../models/User');
 const moment = require('moment');
 const Promotion = require('../models/Promotion');
 const Store = require('../models/Store');
+const Menu = require('../models/Menu');
 const ensureAuthenticated = require('../helpers/authenticate');
 const flashMessage = require('../helpers/messenger');
 require('dotenv').config();
@@ -33,21 +34,28 @@ router.get('/addPromotion', ensureAuthenticated, (req, res) => {
         raw: true
     })
         .then((stores) => {
-            res.render('promotion/addPromotion', { stores });
+            Menu.findAll({
+                order: [['price']],
+                raw: true
+            })
+                .then((menus) => {
+                    res.render('promotion/addPromotion', { stores, menus });
+                })
         })
         .catch(err => console.log(err));
 });
 
 router.post('/addPromotion', (req, res) => {
     let name = req.body.name;
-    let description = req.body.description.slice(0, 1999);
+    let discount = req.body.discount;
     let storeid = req.body.storeid;
+    let menuid = req.body.menuid;
     let posterURL = req.body.posterURL;
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
     let userId = req.user.id;
     Promotion.create(
         {
-            name, description, storeid, posterURL, dateRelease, userId
+            name, discount, storeid, menuid, posterURL, dateRelease, userId
         }
     )
         .then((promotion) => {
@@ -92,12 +100,9 @@ router.get('/promotionalEmail', ensureAuthenticated, (req, res) => {
 
 router.post('/promotionalEmail', async function (req, res) {
     let { email, name } = req.body;
-    console.log(email);
-    console.log(name);
     try {
         let user = await User.findOne({ where: { email: email } });
         let url = `${process.env.BASE_URL}:${process.env.PORT}/login`;
-        console.log(email);
         sendEmail(user.email, url, name)
             .then(response => {
                 console.log(response);
@@ -143,7 +148,14 @@ router.get('/editPromotion/:id', ensureAuthenticated, (req, res) => {
                 raw: true
             })
                 .then((stores) => {
-                    res.render('promotion/editPromotion', { promotion, stores });
+                    Menu.findAll({
+                        order: [['price']],
+                        raw: true
+                    })
+                        .then((menus) => {
+                            res.render('promotion/editPromotion', { promotion, stores, menus });
+                        })
+                        .catch(err => console.log(err));
                 })
                 .catch(err => console.log(err));
         })
@@ -152,13 +164,14 @@ router.get('/editPromotion/:id', ensureAuthenticated, (req, res) => {
 
 router.post('/editPromotion/:id', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
-    let description = req.body.description.slice(0, 1999);
+    let discount = req.body.discount;
     let storeid = req.body.storeid;
+    let menuid = req.body.menuid;
     let posterURL = req.body.posterURL;
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
     Promotion.update(
         {
-            name, description, storeid, posterURL, dateRelease
+            name, discount, storeid, menuid, posterURL, dateRelease
         },
         { where: { id: req.params.id } }
     )

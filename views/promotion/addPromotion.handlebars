@@ -9,9 +9,8 @@
 						<input type="text" class="form-control" id="name" name="name" onblur="initialiseTitle()">
 					</div>
 					<div class="form-group mb-4">
-						<label class="font-italic" for="description">Description</label>
-						<textarea class="form-control" id="description" name="description" rows="7"
-							maxlength="2000"></textarea>
+						<label class="font-italic" for="discount">Discount</label>
+						<input type="number" class="form-control" id="discount" name="discount">
 					</div>
 					{{#if stores}}
 					<div class="form-group">
@@ -19,6 +18,17 @@
 						<br>
 						<select name="storeid" id="storeid">
 							{{#each stores}}
+							<option value="{{id}}">{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+					{{/if}}
+					{{#if menus}}
+					<div class="form-group">
+						<label class="font-italic" for="menuid">Food:</label>
+						<br>
+						<select name="menuid" id="menuid">
+							{{#each menus}}
 							<option value="{{id}}">{{name}}</option>
 							{{/each}}
 						</select>
