@@ -266,6 +266,36 @@ router.get('/receipt', ensureAuthenticated, (req, res) => {
         .catch(err => console.log(err));
 });
 
+router.get('/review', ensureAuthenticated, (req, res) =>{
+    User.findAll({
+        where: { id: req.user.id },
+        raw: true
+    })
+    .then((users) => 
+    {
+        res.render('user/review', { users });
+    })
+});
+
+router.post('/review', ensureAuthenticated, (req, res) => {
+    let rating = req.body.rating;
+    let feedback = req.body.feedback;
+    console.log(req.body.rating);
+    console.log(req.body.feedback);
+    console.log(req.body.email);
+
+    User.update(
+        { rating, feedback},
+        { where: {email: req.body.email}}
+    )
+    .then((result) => {
+        console.log(result[0] + ' user updated!');
+        flashMessage(res, 'success', 'Review successfully sent!');
+        res.redirect('/');
+    })
+
+});
+
 router.post('/listProduct', ensureAuthenticated, (req, res) => {
     let name = req.body.name;
     let quantity = req.body.quantity;

@@ -1,0 +1,37 @@
+<div class="col-md-6 mx-auto">
+    <br>
+    <div class="card card-body" style="margin-bottom:400px;">
+        <img class="logo" src="/img/logo-white.png">
+        <h3 class="text-center">Leave us a Review!</h3>
+        <a href="/" class="link-primary" style="text-decoration: underline;">Back to Home</a>
+        <hr>
+        <form action="" method="post">
+            <p class="text-center">Rate your experiences using our services from 1 to 5.</p>
+            <div class="form-group radio-table">
+                <input type="radio" id="1" name="rating" value="5">
+                <label for="1">5 - Loved it!</label><br>
+                <input type="radio" id="2" name="rating" value="4">
+                <label for="2">4 - Serviceable</label><br>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3 - Average</label><br>
+                <input type="radio" id="4" name="rating" value="2">
+                <label for="4">2 - Below Average</label><br>
+                <input type="radio" id="5" name="rating" value="1">
+                <label for="5">1 - Disappointing...</label>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">(Optional) Leave us some feedback!</label>
+                <textarea class="form-control" name = "feedback" id="feedback" rows="3" maxlength="150"></textarea>
+            </div>
+
+            <div style = "visibility: hidden;">
+                <label for="address">Email WIP:</label>
+                <input type="address" class="form-control" name="email" readonly value="{{user.email}}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit Review</button>
+            <br>
+        </form>
+
+    </div>
+</div>
