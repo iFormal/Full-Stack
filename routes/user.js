@@ -115,7 +115,7 @@ router.post('/editProfile/:id', async function (req, res) {
             // Create new user record
             User.update(
                 { name, posterURL, email, address },
-                { where: { id: req.user.id } }
+                { where: { id: req.params.id } }
             )
                 .then((result) => {
                     console.log(result[0] + ' user updated!');
